@@ -1,0 +1,744 @@
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 11:45:56"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 11:45:56"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 11:45:56"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 11:45:56"}
+{"level":"info","message":"SIGINT signal received: closing HTTP server","service":"lucia-printing-api","timestamp":"2026-02-17 11:45:58"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 11:46:09"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 11:46:09"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 11:46:09"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 11:46:10"}
+{"code":"EAUTH","command":"AUTH PLAIN","level":"error","message":"SMTP connection error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials a640c23a62f3a-b8fc766531asm331147666b.50 - gsmtp","response":"535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials a640c23a62f3a-b8fc766531asm331147666b.50 - gsmtp","responseCode":535,"service":"lucia-printing-api","stack":"Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials a640c23a62f3a-b8fc766531asm331147666b.50 - gsmtp\n    at SMTPConnection._formatError (D:\\lucia\\backend\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:809:19)\n    at SMTPConnection._actionAUTHComplete (D:\\lucia\\backend\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:1588:34)\n    at SMTPConnection.<anonymous> (D:\\lucia\\backend\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:556:26)\n    at SMTPConnection._processResponse (D:\\lucia\\backend\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:993:20)\n    at SMTPConnection._onData (D:\\lucia\\backend\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:774:14)\n    at SMTPConnection._onSocketData (D:\\lucia\\backend\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:195:44)\n    at TLSSocket.emit (node:events:508:28)\n    at addChunk (node:internal/streams/readable:559:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)\n    at Readable.push (node:internal/streams/readable:390:5)","timestamp":"2026-02-17 11:46:11"}
+{"level":"info","message":"SIGINT signal received: closing HTTP server","service":"lucia-printing-api","timestamp":"2026-02-17 11:50:59"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 11:51:08"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 11:51:08"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 11:51:08"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 11:51:08"}
+{"code":"EAUTH","command":"AUTH PLAIN","level":"error","message":"SMTP connection error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials a640c23a62f3a-b8fc76959f7sm337847366b.62 - gsmtp","response":"535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials a640c23a62f3a-b8fc76959f7sm337847366b.62 - gsmtp","responseCode":535,"service":"lucia-printing-api","stack":"Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials a640c23a62f3a-b8fc76959f7sm337847366b.62 - gsmtp\n    at SMTPConnection._formatError (D:\\lucia\\backend\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:809:19)\n    at SMTPConnection._actionAUTHComplete (D:\\lucia\\backend\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:1588:34)\n    at SMTPConnection.<anonymous> (D:\\lucia\\backend\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:556:26)\n    at SMTPConnection._processResponse (D:\\lucia\\backend\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:993:20)\n    at SMTPConnection._onData (D:\\lucia\\backend\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:774:14)\n    at SMTPConnection._onSocketData (D:\\lucia\\backend\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:195:44)\n    at TLSSocket.emit (node:events:508:28)\n    at addChunk (node:internal/streams/readable:559:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)\n    at Readable.push (node:internal/streams/readable:390:5)","timestamp":"2026-02-17 11:51:09"}
+{"level":"info","message":"SIGINT signal received: closing HTTP server","service":"lucia-printing-api","timestamp":"2026-02-17 11:53:04"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 11:53:12"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 11:53:12"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 11:53:12"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 11:53:12"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-17 11:53:13"}
+{"level":"info","message":"POST /api/auth/register - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 12:14:05"}
+{"level":"info","message":"Email sent: <f39183bf-a437-63a0-c237-1a2a47cf8d1f@gmail.com>","service":"lucia-printing-api","timestamp":"2026-02-17 12:14:07"}
+{"level":"info","message":"New user registered: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-17 12:14:07"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 12:26:22"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 12:27:26"}
+{"level":"info","message":"POST /api/auth/resend-verification - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 12:27:32"}
+{"level":"info","message":"Email sent: <1d91d3ba-cf1f-02f7-21ac-bfe0e13a005d@gmail.com>","service":"lucia-printing-api","timestamp":"2026-02-17 12:27:34"}
+{"level":"info","message":"POST /api/auth/resend-verification - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 12:48:31"}
+{"level":"info","message":"Email sent: <34ba3813-6eec-1b16-ce95-1d6b5e5bc70e@gmail.com>","service":"lucia-printing-api","timestamp":"2026-02-17 12:48:34"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 12:54:07"}
+{"level":"info","message":"POST /api/auth/resend-verification - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 12:54:22"}
+{"level":"info","message":"Email sent: <26a61417-9ab5-ca03-fc2d-6b13a8116add@gmail.com>","service":"lucia-printing-api","timestamp":"2026-02-17 12:54:23"}
+{"level":"info","message":"GET /api/auth/verify-email/477e331c-27fe-4c98-a09e-fd150182a259 - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:16:43"}
+{"level":"info","message":"GET /api/auth/verify-email/477e331c-27fe-4c98-a09e-fd150182a259 - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:16:43"}
+{"level":"info","message":"GET /api/auth/verify-email/477e331c-27fe-4c98-a09e-fd150182a259 - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:20:13"}
+{"level":"info","message":"GET /api/auth/verify-email/477e331c-27fe-4c98-a09e-fd150182a259 - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:20:13"}
+{"level":"info","message":"POST /api/auth/resend-verification - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:20:43"}
+{"level":"info","message":"POST /api/auth/resend-verification - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:20:51"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:20:56"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:20:57"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:20:58"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:20:59"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:20:59"}
+{"level":"info","message":"POST /api/auth/resend-verification - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:21:04"}
+{"level":"info","message":"GET /api/auth/verify-email/b74e3327-f1c6-4e76-b4c1-8c004e42fde4 - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:21:43"}
+{"level":"info","message":"GET /api/auth/verify-email/b74e3327-f1c6-4e76-b4c1-8c004e42fde4 - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:21:43"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:22:18"}
+{"level":"info","message":"POST /api/auth/resend-verification - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:22:24"}
+{"level":"info","message":"POST /api/auth/register - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:25:21"}
+{"level":"info","message":"Email sent: <9d4b5648-f9ca-bb10-e829-f57d9cfff946@gmail.com>","service":"lucia-printing-api","timestamp":"2026-02-17 13:25:23"}
+{"level":"info","message":"New user registered: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-17 13:25:23"}
+{"level":"info","message":"POST /api/auth/resend-verification - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:26:07"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:32:07"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 13:32:07"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:32:07"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 13:32:07"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-17 13:32:08"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:32:40"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 13:32:40"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:32:40"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 13:32:40"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-17 13:32:41"}
+{"level":"info","message":"SIGINT signal received: closing HTTP server","service":"lucia-printing-api","timestamp":"2026-02-17 13:33:16"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:33:28"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 13:33:28"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:33:28"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 13:33:28"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-17 13:33:29"}
+{"level":"info","message":"POST /api/auth/resend-verification - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:34:32"}
+{"level":"info","message":"Email sent: <c2a4967b-d007-2404-f759-aef9eb66c2f6@gmail.com> to: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-17 13:34:34"}
+{"level":"info","message":"POST /api/auth/verify-email/code - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:35:11"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:39:28"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 13:39:28"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:39:28"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:39:30"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 13:39:30"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:39:30"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 13:39:30"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-17 13:39:32"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:40:55"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 13:40:55"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:40:55"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 13:40:55"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-17 13:40:56"}
+{"level":"info","message":"GET /api/auth/verify-email/477e331c-27fe-4c98-a09e-fd150182a259 - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:41:48"}
+{"level":"info","message":"GET /api/auth/verify-email/477e331c-27fe-4c98-a09e-fd150182a259 - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:41:48"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:42:02"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 13:42:02"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:42:02"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 13:42:02"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-17 13:42:06"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:44:34"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 13:44:34"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:44:34"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 13:44:34"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-17 13:44:35"}
+{"level":"info","message":"POST /api/auth/resend-verification - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:44:42"}
+{"level":"info","message":"Email sent: <48b65f86-8976-e65b-ef20-ce97b51c6170@gmail.com> to: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-17 13:44:44"}
+{"level":"info","message":"GET /api/auth/verify-email/374a832d-e25f-4ee1-8d61-4a34afcef92a - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:45:51"}
+{"level":"info","message":"Email sent: <60e65488-cad2-945e-310f-b10b576990e3@gmail.com> to: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-17 13:45:53"}
+{"level":"info","message":"Email verified: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-17 13:45:53"}
+{"level":"info","message":"GET /api/auth/verify-email/374a832d-e25f-4ee1-8d61-4a34afcef92a - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:45:53"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:46:51"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 13:46:51"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:46:51"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 13:46:51"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-17 13:46:52"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:47:35"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 13:47:35"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:47:35"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 13:47:36"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-17 13:47:36"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:49:42"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 13:49:42"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:49:42"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 13:49:42"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-17 13:49:44"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:51:14"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 13:51:14"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:51:14"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 13:51:14"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-17 13:51:15"}
+{"level":"info","message":"POST /api/auth/verify-email/code - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 13:52:41"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:59:25"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 13:59:25"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 13:59:25"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 13:59:25"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-17 13:59:26"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 14:00:11"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 14:00:11"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 14:00:11"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 14:00:11"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-17 14:00:12"}
+{"level":"info","message":"POST /api/auth/resend-verification - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 14:00:37"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 14:01:53"}
+{"code":"22001","file":"varchar.c","length":99,"level":"error","line":"640","message":"Login error: value too long for type character varying(255)","name":"error","routine":"varchar","service":"lucia-printing-api","severity":"ERROR","stack":"error: value too long for type character varying(255)\n    at D:\\lucia\\backend\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async User.setRefreshToken (D:\\lucia\\backend\\src\\models\\User.js:278:5)\n    at async login (D:\\lucia\\backend\\src\\controllers\\authController.js:293:7)","timestamp":"2026-02-17 14:01:53"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 14:02:21"}
+{"code":"22001","file":"varchar.c","length":99,"level":"error","line":"640","message":"Login error: value too long for type character varying(255)","name":"error","routine":"varchar","service":"lucia-printing-api","severity":"ERROR","stack":"error: value too long for type character varying(255)\n    at D:\\lucia\\backend\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async User.setRefreshToken (D:\\lucia\\backend\\src\\models\\User.js:278:5)\n    at async login (D:\\lucia\\backend\\src\\controllers\\authController.js:293:7)","timestamp":"2026-02-17 14:02:22"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 14:12:29"}
+{"level":"info","message":"User logged in: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-17 14:12:30"}
+{"level":"info","message":"POST /api/auth/register - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 14:15:52"}
+{"level":"error","message":"Registration error: CodeGenerator.generateSecureNumericCode is not a function","service":"lucia-printing-api","stack":"TypeError: CodeGenerator.generateSecureNumericCode is not a function\n    at User.create (D:\\lucia\\backend\\src\\models\\User.js:443:42)\n    at async register (D:\\lucia\\backend\\src\\controllers\\authController.js:38:23)","timestamp":"2026-02-17 14:15:52"}
+{"level":"info","message":"POST /api/auth/register - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 14:15:58"}
+{"level":"error","message":"Registration error: CodeGenerator.generateSecureNumericCode is not a function","service":"lucia-printing-api","stack":"TypeError: CodeGenerator.generateSecureNumericCode is not a function\n    at User.create (D:\\lucia\\backend\\src\\models\\User.js:443:42)\n    at async register (D:\\lucia\\backend\\src\\controllers\\authController.js:38:23)","timestamp":"2026-02-17 14:15:59"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 14:19:52"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 14:19:52"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 14:19:52"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 14:19:52"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-17 14:19:53"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 14:19:57"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 14:19:57"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 14:19:57"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 14:19:57"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-17 14:19:57"}
+{"level":"info","message":"POST /api/auth/register - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 14:20:01"}
+{"code":"42703","file":"parse_target.c","length":136,"level":"error","line":"1073","message":"Registration error: column \"code\" of relation \"email_verifications\" does not exist","name":"error","position":"57","routine":"checkInsertTargets","service":"lucia-printing-api","severity":"ERROR","stack":"error: column \"code\" of relation \"email_verifications\" does not exist\n    at D:\\lucia\\backend\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async User.create (D:\\lucia\\backend\\src\\models\\User.js:474:5)\n    at async register (D:\\lucia\\backend\\src\\controllers\\authController.js:38:23)","timestamp":"2026-02-17 14:20:01"}
+{"level":"info","message":"POST /api/auth/register - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 14:26:41"}
+{"level":"info","message":"Email sent: <3a2dd075-c955-d8d8-5667-29f138cfac3e@gmail.com> to: mogesshitaw7702@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-17 14:26:44"}
+{"level":"info","message":"New user registered: mogesshitaw7702@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-17 14:26:44"}
+{"level":"info","message":"POST /api/auth/verify-email/code - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 14:28:06"}
+{"level":"info","message":"Email sent: <d0bd94e4-e616-008a-96d8-6860751e5d63@gmail.com> to: mogesshitaw7702@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-17 14:28:10"}
+{"level":"info","message":"Email verified with code: mogesshitaw7702@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-17 14:28:10"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-17 14:28:46"}
+{"level":"info","message":"User logged in: mogesshitaw7702@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-17 14:28:47"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 14:40:08"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 14:40:08"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 14:40:08"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 14:40:08"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-17 14:40:08"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-17 21:23:08"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-17 21:23:08"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-17 21:23:08"}
+{"code":"EDNS","command":"CONN","errno":-3008,"hostname":"smtp.gmail.com","level":"error","message":"SMTP connection error: getaddrinfo ENOTFOUND smtp.gmail.com","service":"lucia-printing-api","stack":"Error: getaddrinfo ENOTFOUND smtp.gmail.com\n    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26)","syscall":"getaddrinfo","timestamp":"2026-02-17 21:23:08"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-17 21:23:09"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 07:52:57"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 07:52:57"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 07:52:57"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 07:52:57"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 07:52:59"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 08:19:19"}
+{"level":"info","message":"User logged in: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-18 08:19:19"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 09:01:17"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 09:01:17"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 09:01:17"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 09:01:18"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 09:01:19"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 09:20:20"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 09:20:20"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 09:20:21"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 09:26:51"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 09:26:51"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 09:26:51"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 09:26:51"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 09:26:52"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 09:27:59"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 09:27:59"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 09:27:59"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 09:27:59"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 09:28:01"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 09:28:01"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 09:28:01"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 09:28:01"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 09:28:02"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 09:28:16"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 09:30:23"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 09:30:23"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 09:30:23"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 09:30:23"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 09:30:24"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 09:30:24"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 09:30:24"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 09:30:25"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 09:30:26"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 09:31:56"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 09:31:56"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 09:31:56"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 09:31:56"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 09:31:57"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 09:32:24"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 09:32:24"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 09:32:24"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 09:32:24"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 11:06:49"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 11:06:49"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 11:06:49"}
+{"code":"EDNS","command":"CONN","errno":-3008,"hostname":"smtp.gmail.com","level":"error","message":"SMTP connection error: getaddrinfo ENOTFOUND smtp.gmail.com","service":"lucia-printing-api","stack":"Error: getaddrinfo ENOTFOUND smtp.gmail.com\n    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26)","syscall":"getaddrinfo","timestamp":"2026-02-18 11:06:49"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 11:06:50"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 11:07:56"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 11:09:15"}
+{"level":"info","message":"User logged in: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-18 11:09:16"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 11:09:54"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 11:09:54"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 11:09:55"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 11:11:48"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 11:11:48"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 11:11:48"}
+{"code":"EDNS","command":"CONN","errno":-3008,"hostname":"smtp.gmail.com","level":"error","message":"SMTP connection error: getaddrinfo ENOTFOUND smtp.gmail.com","service":"lucia-printing-api","stack":"Error: getaddrinfo ENOTFOUND smtp.gmail.com\n    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26)","syscall":"getaddrinfo","timestamp":"2026-02-18 11:11:48"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 11:11:48"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 11:11:53"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 11:11:59"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 11:11:59"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 11:11:59"}
+{"code":"EDNS","command":"CONN","errno":-3008,"hostname":"smtp.gmail.com","level":"error","message":"SMTP connection error: getaddrinfo ENOTFOUND smtp.gmail.com","service":"lucia-printing-api","stack":"Error: getaddrinfo ENOTFOUND smtp.gmail.com\n    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26)","syscall":"getaddrinfo","timestamp":"2026-02-18 11:11:59"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 11:11:59"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 12:57:41"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 12:57:41"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 12:57:42"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 12:57:53"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:03:56"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:03:56"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:03:56"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 13:06:07"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 13:06:07"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 13:06:07"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 13:06:07"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 13:06:09"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:07:12"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:07:12"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:07:22"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:07:22"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:07:22"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:07:22"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:07:23"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:07:23"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:10:56"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:10:56"}
+{"level":"info","message":"GET /api/auth/users/all - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:12:27"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:12:27"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 13:17:57"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 13:17:57"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 13:17:57"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 13:17:57"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 13:17:59"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 13:20:21"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 13:20:21"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 13:20:21"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 13:20:21"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 13:20:24"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 13:21:13"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 13:21:13"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 13:21:13"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 13:21:13"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 13:21:15"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 13:22:17"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 13:22:17"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 13:22:17"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 13:22:18"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 13:22:19"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:23:52"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:23:52"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:23:52"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:23:54"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:23:56"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 13:26:01"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 13:26:01"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 13:26:01"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 13:26:01"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 13:26:02"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:26:07"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:26:07"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:26:07"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:26:07"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:26:08"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:26:08"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:26:22"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:26:22"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:26:22"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:26:22"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:26:22"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:26:22"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:29:11"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:29:12"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:29:12"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:29:12"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:29:12"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:29:12"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:29:15"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:29:15"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:29:15"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:29:15"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:29:15"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:29:15"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:31:10"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:31:10"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:31:10"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:31:10"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 13:31:11"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 13:31:11"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 14:34:56"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 14:34:56"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 14:34:56"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 14:34:56"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:34:56"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:34:56"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:34:56"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 14:34:58"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 14:35:37"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 14:35:37"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 14:35:37"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 14:35:37"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 14:35:38"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 14:35:40"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 14:35:40"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 14:35:40"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 14:35:40"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 14:35:41"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:35:43"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:35:43"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:35:44"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:40:35"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:40:59"}
+{"level":"info","message":"User logged in: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-18 14:41:00"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:41:28"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:41:28"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:41:29"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:44:09"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:44:10"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 14:45:39"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 14:45:39"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 14:45:39"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 14:45:39"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 14:45:40"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:45:45"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 14:45:45"}
+{"level":"info","message":"PUT /api/admin/users/5774aaad-564c-4441-958e-8ee0de6884d5 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:46:55"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:46:55"}
+{"level":"info","message":"PUT /api/admin/users/5774aaad-564c-4441-958e-8ee0de6884d5 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:46:55"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:46:55"}
+{"level":"info","message":"PUT /api/admin/users/5774aaad-564c-4441-958e-8ee0de6884d5 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:46:55"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:46:55"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:13"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:47:13"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:15"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:47:15"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:18"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:18"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:18"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:18"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:20"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:20"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:33"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:33"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:33"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:33"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:33"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:33"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:41"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:47:41"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:44"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:47:44"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:44"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:47:44"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:48"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:47:48"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:48"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:47:48"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:48"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:47:48"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:49"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:47:49"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:49"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:47:49"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:49"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:47:49"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:52"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:47:52"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:47:52"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:47:52"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:10"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:10"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:11"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:11"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:19"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:19"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:19"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:19"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:20"}
+{"level":"info","message":"Admin undefined fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:20"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:24"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:50:24"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:25"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:50:25"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:25"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:50:25"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:26"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:50:26"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:26"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:50:26"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:26"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 14:50:26"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:58"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:58"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:58"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:59"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 14:50:59"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 14:51:00"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:54:55"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:54:56"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:54:56"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:54:56"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:55:04"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:55:05"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:55:05"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:55:05"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:55:05"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:55:07"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:55:07"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:55:07"}
+{"level":"info","message":"DELETE /api/admin/users/5675bb6e-3188-4257-ad26-29c3d053a6d4 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:56:42"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:58:08"}
+{"level":"info","message":"User logged in: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-18 14:58:08"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:58:15"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:58:15"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:58:15"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:58:18"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 14:58:48"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:04:06"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 15:05:46"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 15:05:46"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 15:05:46"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 15:05:46"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 15:05:48"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 15:05:52"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 15:05:52"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 15:05:52"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 15:05:52"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-18 15:05:53"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:05:55"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 15:05:55"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:06:20"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:06:20"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:06:21"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:06:21"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:06:21"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:06:21"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:06:21"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:06:21"}
+{"level":"info","message":"DELETE /api/admin/users/477baa6c-019e-45d6-a4f4-7a5affdef85b - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:16:15"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:22:30"}
+{"level":"info","message":"User logged in: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-18 15:22:31"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:00"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:00"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:00"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:00"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:01"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:01"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:07"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:25:07"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:07"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:25:07"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:08"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:25:08"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:08"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:25:08"}
+{"level":"info","message":"PUT /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:08"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:25:08"}
+{"level":"info","message":"DELETE /api/admin/users/4dc7f849-5f59-418c-aec4-ce2f2e2acd26 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:22"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 deleted user: 4dc7f849-5f59-418c-aec4-ce2f2e2acd26","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:22"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:22"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:22"}
+{"level":"info","message":"PUT /api/admin/users/477baa6c-019e-45d6-a4f4-7a5affdef85b - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:31"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:25:31"}
+{"level":"info","message":"PUT /api/admin/users/477baa6c-019e-45d6-a4f4-7a5affdef85b - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:31"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:25:31"}
+{"level":"info","message":"PUT /api/admin/users/477baa6c-019e-45d6-a4f4-7a5affdef85b - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:32"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:25:32"}
+{"level":"info","message":"PUT /api/admin/users/477baa6c-019e-45d6-a4f4-7a5affdef85b - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:32"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:25:32"}
+{"level":"info","message":"PUT /api/admin/users/477baa6c-019e-45d6-a4f4-7a5affdef85b - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:33"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:25:33"}
+{"level":"info","message":"PUT /api/admin/users/477baa6c-019e-45d6-a4f4-7a5affdef85b - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:33"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:25:33"}
+{"level":"info","message":"PUT /api/admin/users/477baa6c-019e-45d6-a4f4-7a5affdef85b - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:33"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:25:33"}
+{"level":"info","message":"PUT /api/admin/users/477baa6c-019e-45d6-a4f4-7a5affdef85b - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:33"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:25:33"}
+{"level":"info","message":"PUT /api/admin/users/477baa6c-019e-45d6-a4f4-7a5affdef85b - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:25:34"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:25:34"}
+{"level":"info","message":"PUT /api/admin/users/477baa6c-019e-45d6-a4f4-7a5affdef85b - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:31:41"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:31:42"}
+{"level":"info","message":"PATCH /api/admin/users/3afe7d60-21ae-4514-902d-c2b7c6aaba04/status - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:31:51"}
+{"level":"error","message":"Update user status error: User.updateStatus is not a function","service":"lucia-printing-api","stack":"TypeError: User.updateStatus is not a function\n    at updateUserStatus (D:\\lucia\\backend\\src\\controllers\\userController.js:207:33)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 15:31:51"}
+{"level":"info","message":"PATCH /api/admin/users/5774aaad-564c-4441-958e-8ee0de6884d5/status - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 15:31:56"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:05:38"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:05:43"}
+{"level":"info","message":"User logged in: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-18 17:05:43"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:05:49"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:05:49"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:05:49"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:05:49"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:05:50"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:05:50"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:05:51"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:05:51"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:05:52"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:05:52"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:05:59"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:05:59"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:06:00"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:06:00"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:06:05"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:06:05"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:12:24"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:12:24"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:12:24"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:12:24"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:12:24"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:12:24"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:17:45"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:17:45"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:17:45"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:17:45"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:17:46"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:17:46"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:18:03"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:18:03"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:18:03"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:18:03"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:18:04"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:18:04"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:18:11"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:18:11"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:18:11"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:18:11"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:18:15"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:18:15"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:18:15"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:18:15"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:18:16"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:18:16"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:20:25"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:20:25"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:20:25"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:20:25"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:20:26"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 17:20:26"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:23:04"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:23:04"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:23:11"}
+{"level":"info","message":"User logged in: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-18 17:23:11"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:44:42"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:44:42"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 17:44:47"}
+{"level":"info","message":"User logged in: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-18 17:44:47"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-18 20:19:02"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-18 20:19:02"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-18 20:19:02"}
+{"code":"EDNS","command":"CONN","errno":-3008,"hostname":"smtp.gmail.com","level":"error","message":"SMTP connection error: getaddrinfo ENOTFOUND smtp.gmail.com","service":"lucia-printing-api","stack":"Error: getaddrinfo ENOTFOUND smtp.gmail.com\n    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26)","syscall":"getaddrinfo","timestamp":"2026-02-18 20:19:02"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-18 20:19:02"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 20:27:14"}
+{"level":"info","message":"User logged in: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-18 20:27:15"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 20:28:04"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 20:28:04"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 20:28:04"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 20:28:04"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 20:28:04"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 20:28:04"}
+{"level":"info","message":"POST /api/admin/users/bulk - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 20:28:45"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateBulkAction (D:\\lucia\\backend\\src\\middleware\\validation.js:218:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 20:28:45"}
+{"level":"info","message":"POST /api/admin/users/bulk - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 20:28:47"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateBulkAction (D:\\lucia\\backend\\src\\middleware\\validation.js:218:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 20:28:47"}
+{"level":"info","message":"PUT /api/admin/users/5675bb6e-3188-4257-ad26-29c3d053a6d4 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 20:29:06"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 20:29:06"}
+{"level":"info","message":"PUT /api/admin/users/5675bb6e-3188-4257-ad26-29c3d053a6d4 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 20:29:07"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 20:29:07"}
+{"level":"info","message":"PUT /api/admin/users/5675bb6e-3188-4257-ad26-29c3d053a6d4 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 20:29:07"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 20:29:07"}
+{"level":"info","message":"PUT /api/admin/users/5675bb6e-3188-4257-ad26-29c3d053a6d4 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 20:29:08"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 20:29:08"}
+{"level":"info","message":"PUT /api/admin/users/5675bb6e-3188-4257-ad26-29c3d053a6d4 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 20:29:08"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 20:29:08"}
+{"level":"info","message":"PUT /api/admin/users/5675bb6e-3188-4257-ad26-29c3d053a6d4 - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 20:29:08"}
+{"level":"error","message":"Unhandled error: validationResult is not defined","service":"lucia-printing-api","stack":"ReferenceError: validationResult is not defined\n    at validateUserUpdate (D:\\lucia\\backend\\src\\middleware\\validation.js:198:20)\n    at Layer.handle [as handle_request] (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\lucia\\backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at middleware (D:\\lucia\\backend\\node_modules\\express-validator\\lib\\middlewares\\check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-02-18 20:29:08"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-18 20:32:13"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-18 20:32:13"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-19 09:04:44"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-19 09:04:44"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-19 09:04:44"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-19 09:04:44"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-19 09:04:45"}
+{"level":"info","message":"SIGINT signal received: closing HTTP server","service":"lucia-printing-api","timestamp":"2026-02-19 09:05:02"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-19 15:21:57"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-19 15:21:57"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-19 15:21:57"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-19 15:21:58"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-19 15:22:00"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 15:45:58"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 15:45:58"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 15:46:01"}
+{"level":"info","message":"User logged in: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-19 15:46:02"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 15:46:10"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 15:46:10"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 15:46:10"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 15:46:10"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 15:46:10"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 15:46:10"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 15:47:22"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 15:47:22"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:21:10"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:21:11"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:21:17"}
+{"level":"info","message":"User logged in: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-19 17:21:17"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:39:43"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:39:43"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:39:46"}
+{"level":"info","message":"User logged in: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-19 17:39:46"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:40:05"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:40:05"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:40:05"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:40:05"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:40:08"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:40:08"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:41:56"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:41:56"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:41:57"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:41:57"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:41:57"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:41:57"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:43:09"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:43:10"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:43:10"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:43:10"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:43:10"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:43:10"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:43:42"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:43:42"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:44:17"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:44:17"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:44:21"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:44:21"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:44:22"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:44:22"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:44:24"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:44:24"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:44:30"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:44:30"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:44:30"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:44:30"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:44:37"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:44:37"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:47:06"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:47:07"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:47:07"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:47:07"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:47:07"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:47:07"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:47:57"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:47:57"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:48:04"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:48:04"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:48:10"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:48:10"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:48:14"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:48:14"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:48:16"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:48:16"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:48:18"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 17:48:18"}
+{"level":"info","message":"POST /api/auth/register - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:51:32"}
+{"level":"info","message":"POST /api/auth/register - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:51:38"}
+{"level":"info","message":"POST /api/auth/register - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:51:38"}
+{"level":"info","message":"POST /api/auth/register - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:51:38"}
+{"level":"info","message":"POST /api/auth/register - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:51:38"}
+{"level":"info","message":"POST /api/auth/register - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 17:51:39"}
+{"level":"info","message":"POST /api/auth/register - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 18:01:11"}
+{"level":"info","message":"POST /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 18:04:11"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 20:35:45"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 20:35:45"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 20:35:50"}
+{"level":"info","message":"User logged in: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-19 20:35:50"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 20:38:34"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 20:38:34"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 20:38:34"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 20:38:34"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 20:38:34"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-19 20:38:34"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 23:48:58"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-19 23:48:58"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-23 15:38:31"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-23 15:38:31"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-23 15:38:31"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-23 15:38:33"}
+{"level":"info","message":"SMTP server is ready to send emails","service":"lucia-printing-api","timestamp":"2026-02-23 15:38:33"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-23 16:46:04"}
+{"level":"info","message":"User logged in: mogesshitaw318@gmail.com","service":"lucia-printing-api","timestamp":"2026-02-23 16:46:05"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-23 16:47:00"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-23 16:47:00"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-23 16:47:00"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-23 16:47:00"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-23 16:47:01"}
+{"level":"info","message":"Admin 5774aaad-564c-4441-958e-8ee0de6884d5 fetched users list","service":"lucia-printing-api","timestamp":"2026-02-23 16:47:01"}
+{"level":"info","message":"Server running on port 5000","service":"lucia-printing-api","timestamp":"2026-02-24 15:30:22"}
+{"level":"info","message":"Environment: development","service":"lucia-printing-api","timestamp":"2026-02-24 15:30:22"}
+{"level":"info","message":"API URL: http://localhost:5000","service":"lucia-printing-api","timestamp":"2026-02-24 15:30:22"}
+{"level":"info","message":"Database connection established","service":"lucia-printing-api","timestamp":"2026-02-24 15:30:22"}
+{"code":"EDNS","command":"CONN","errno":-3008,"hostname":"smtp.gmail.com","level":"error","message":"SMTP connection error: getaddrinfo ENOTFOUND smtp.gmail.com","service":"lucia-printing-api","stack":"Error: getaddrinfo ENOTFOUND smtp.gmail.com\n    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26)","syscall":"getaddrinfo","timestamp":"2026-02-24 15:30:27"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-24 16:39:33"}
+{"level":"info","message":"GET /api/admin/users - ::1","service":"lucia-printing-api","timestamp":"2026-02-24 16:39:33"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-24 16:39:39"}
+{"level":"info","message":"POST /api/auth/login - ::1","service":"lucia-printing-api","timestamp":"2026-02-24 16:39:41"}
+{"level":"info","message":"POST /api/auth/register - ::1","service":"lucia-printing-api","timestamp":"2026-02-24 17:10:11"}
+{"code":"42703","file":"parse_target.c","length":136,"level":"error","line":"1073","message":"Registration error: column \"code\" of relation \"email_verifications\" does not exist","name":"error","position":"57","routine":"checkInsertTargets","service":"lucia-printing-api","severity":"ERROR","stack":"error: column \"code\" of relation \"email_verifications\" does not exist\n    at D:\\lucia\\backend\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async User.create (D:\\lucia\\backend\\src\\models\\User.js:473:5)\n    at async register (D:\\lucia\\backend\\src\\controllers\\authController.js:38:23)","timestamp":"2026-02-24 17:10:12"}
