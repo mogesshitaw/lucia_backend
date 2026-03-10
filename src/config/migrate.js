@@ -975,7 +975,38 @@ const createTables = async () => {
       ORDER BY pj.priority DESC, pj.created_at ASC;
     `);
     console.log('  ✅ Print queue view created/verified');
-
+    await query(`
+      -- Create testimonials table
+  CREATE TABLE IF NOT EXISTS testimonials (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      customer_name VARCHAR(255) NOT NULL,
+      customer_role VARCHAR(255),
+      company VARCHAR(255),
+      content TEXT NOT NULL,
+      rating INTEGER CHECK (rating >= 1 AND rating <= 5),
+      avatar_url TEXT,
+      avatar_path TEXT,
+      email VARCHAR(255),
+      is_approved BOOLEAN DEFAULT false,
+      is_featured BOOLEAN DEFAULT false,
+      status VARCHAR(50) DEFAULT 'pending', -- pending, approved, rejected
+      source VARCHAR(50) DEFAULT 'website', -- website, admin, social
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      approved_at TIMESTAMP,
+      approved_by UUID REFERENCES users(id),
+      customer_id UUID REFERENCES users(id),
+      order_id UUID REFERENCES orders(id),
+      metadata JSONB
+  );
+  `);
+  await query(`
+    CREATE INDEX IF NOT EXISTS idx_testimonials_status ON testimonials(status);
+  CREATE INDEX IF NOT EXISTS idx_testimonials_is_featured ON testimonials(is_featured);
+  CREATE INDEX IF NOT EXISTS idx_testimonials_rating ON testimonials(rating);
+  CREATE INDEX IF NOT EXISTS idx_testimonials_created_at ON testimonials(created_at DESC);
+    `);
+        console.log('✅Testmonia table created successsfully');
     console.log('\n=============================================');
     console.log('✅ All database migrations completed successfully!');
     console.log('=============================================');

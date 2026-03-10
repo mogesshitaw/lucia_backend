@@ -18,57 +18,66 @@ const imageController = {
         sortOrder = 'desc',
         customer_id
       } = req.query;
-
+  
       const offset = (page - 1) * limit;
       const userId = req.user.id;
       const userRole = req.user.role;
-
-      let whereClause = '';
+  
+      // Whitelist allowed sort fields to prevent SQL injection
+      const allowedSortFields = ['created_at', 'updated_at', 'original_filename', 'title', 'status'];
+      const allowedSortOrders = ['asc', 'desc'];
+      
+      const safeSortBy = allowedSortFields.includes(sortBy) ? sortBy : 'created_at';
+      const safeSortOrder = allowedSortOrders.includes(sortOrder.toLowerCase()) ? sortOrder : 'desc';
+  
+      const conditions = [];
       const params = [];
       let paramIndex = 1;
-
+  
       // Filter by customer if user is customer
       if (userRole === 'customer') {
-        whereClause = ` AND i.customer_id = $${paramIndex}`;
+        conditions.push(`i.customer_id = $${paramIndex}`);
         params.push(userId);
         paramIndex++;
       } else if (customer_id) {
-        whereClause += ` AND i.customer_id = $${paramIndex}`;
+        conditions.push(`i.customer_id = $${paramIndex}`);
         params.push(customer_id);
         paramIndex++;
       }
-
+  
       // Filter by status
       if (status) {
-        whereClause += ` AND i.status = $${paramIndex}`;
+        conditions.push(`i.status = $${paramIndex}`);
         params.push(status);
         paramIndex++;
       }
-
+  
       // Search by filename or title
       if (search) {
-        whereClause += ` AND (i.original_filename ILIKE $${paramIndex} OR i.title ILIKE $${paramIndex})`;
+        conditions.push(`(i.original_filename ILIKE $${paramIndex} OR i.title ILIKE $${paramIndex})`);
         params.push(`%${search}%`);
         paramIndex++;
       }
-
+  
       // Filter by tags
       if (tags) {
         const tagArray = tags.split(',');
-        whereClause += ` AND  i.tags && $${paramIndex}`;
+        conditions.push(`i.tags && $${paramIndex}`);
         params.push(tagArray);
         paramIndex++;
       }
-
+  
+      const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
+  
       // Get total count
       const countQuery = `
         SELECT COUNT(*) 
         FROM images i
         ${whereClause}
       `;
-      const countResult = await query(countQuery, params.slice(0, paramIndex - 1));
+      const countResult = await query(countQuery, params);
       const total = parseInt(countResult.rows[0].count);
-
+  
       // Get images
       const imagesQuery = `
         SELECT 
@@ -77,13 +86,12 @@ const imageController = {
         FROM images i
         JOIN users u ON i.uploaded_by = u.id
         ${whereClause}
-        ORDER BY i.${sortBy} ${sortOrder}
+        ORDER BY i.${safeSortBy} ${safeSortOrder}
         LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
       `;
       
-      const allParams = [...params, parseInt(limit), offset];
-      const imagesResult = await query(imagesQuery, allParams);
-
+      const imagesResult = await query(imagesQuery, [...params, parseInt(limit), parseInt(offset)]);
+  
       res.json({
         success: true,
         data: {
@@ -104,7 +112,6 @@ const imageController = {
       });
     }
   },
-
   // Get single image
   async getImage(req, res) {
     try {
@@ -188,31 +195,44 @@ const imageController = {
         }
 
         // Insert image record
-        const imageResult = await query(
-          `INSERT INTO images (
-            id, image_code, filename, original_filename, file_path,
-            thumbnail_path, file_size, mime_type, width, height,
-            uploaded_by, title, description, tags, status
-          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
-          RETURNING *`,
-          [
-            uuidv4(),
-            `IMG-${Date.now()}-${i}`,
-            file.filename,
-            file.originalname,
-            file.path,
-            thumbnailPath,
-            file.size,
-            file.mimetype,
-            width,
-            height,
-            userId,
-            fileMetadata.title || null,
-            fileMetadata.description || null,
-            fileMetadata.tags || [],
-            'pending'
-          ]
-        );
+const imageResult = await query(
+  `INSERT INTO images (
+    id, image_code, filename, original_filename, file_path,
+    thumbnail_path, file_size, mime_type, width, height,
+    uploaded_by, customer_id, title, description, tags, status,
+    service_category, print_size, quantity, paper_type, finish,
+    color_mode_req, instructions, requires_proof, metadata
+  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25)
+  RETURNING *`,
+  [
+    uuidv4(),
+    `IMG-${Date.now()}-${i}`,
+    file.filename,
+    file.originalname,
+    file.path,
+    thumbnailPath,
+    file.size,
+    file.mimetype,
+    width,
+    height,
+    userId,
+    fileMetadata.customer_id || null,
+    fileMetadata.title || null,
+    fileMetadata.description || null,
+    fileMetadata.tags || [],
+    'pending',
+    fileMetadata.service_category || null,
+    fileMetadata.print_size || null,
+    fileMetadata.quantity || 1,
+    fileMetadata.paper_type || null,
+    fileMetadata.finish || null,
+    fileMetadata.color_mode_req || 'cmyk',
+    fileMetadata.instructions || null,
+    fileMetadata.requires_proof || false,
+    fileMetadata.metadata || null
+  ]
+);
+
 
         uploadedImages.push(imageResult.rows[0]);
       }
@@ -402,17 +422,25 @@ const imageController = {
       const { id } = req.params;
       const { title, description, tags, category } = req.body;
 
-      const result = await query(
-        `UPDATE images 
-         SET title = COALESCE($2, title),
-             description = COALESCE($3, description),
-             tags = COALESCE($4, tags),
-             category = COALESCE($5, category),
-             updated_at = NOW()
-         WHERE id = $1
-         RETURNING *`,
-        [id, title, description, tags, category]
-      );
+const result = await query(
+  `UPDATE images 
+   SET title = COALESCE($2, title),
+       description = COALESCE($3, description),
+       tags = COALESCE($4, tags),
+       category = COALESCE($5, category),
+       service_category = COALESCE($6, service_category),
+       print_size = COALESCE($7, print_size),
+       quantity = COALESCE($8, quantity),
+       paper_type = COALESCE($9, paper_type),
+       finish = COALESCE($10, finish),
+       color_mode_req = COALESCE($11, color_mode_req),
+       instructions = COALESCE($12, instructions),
+       requires_proof = COALESCE($13, requires_proof),
+       updated_at = NOW()
+   WHERE id = $1
+   RETURNING *`,
+  [id, title, description, tags, category, service_category, print_size, quantity, paper_type, finish, color_mode_req, instructions, requires_proof]
+);
 
       if (result.rows.length === 0) {
         return res.status(404).json({

@@ -82,6 +82,20 @@ const addMissingColumns = async () => {
       );
     `);
     console.log('✅ favorites table created');
+ await query(`ALTER TABLE images 
+ADD COLUMN IF NOT EXISTS service_category VARCHAR(100),
+ADD COLUMN IF NOT EXISTS print_size VARCHAR(100),
+ADD COLUMN IF NOT EXISTS quantity INT DEFAULT 1,
+ADD COLUMN IF NOT EXISTS paper_type VARCHAR(100),
+ADD COLUMN IF NOT EXISTS finish VARCHAR(100),
+ADD COLUMN IF NOT EXISTS color_mode_req VARCHAR(50),
+ADD COLUMN IF NOT EXISTS instructions TEXT,
+ADD COLUMN IF NOT EXISTS requires_proof BOOLEAN DEFAULT false,
+ADD COLUMN IF NOT EXISTS viewed_by_printer BOOLEAN DEFAULT false,
+ADD COLUMN IF NOT EXISTS viewed_at TIMESTAMP,
+ADD COLUMN IF NOT EXISTS completed_at TIMESTAMP,
+ADD COLUMN IF NOT EXISTS metadata JSONB;
+`)
 
     console.log('All migrations completed successfully');
     process.exit(0);

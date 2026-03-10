@@ -19,6 +19,8 @@ const chatRoutes = require('./routes/chatRoutes');
 const calendarRoutes = require('./routes/calendarRoutes');
 const settingsRoutes = require('./routes/settingsRoutes');
 const printJobRoutes = require('./routes/printJobRoutes');
+const ytestmoniaRoute=require('./routes/testimonialRoutes');
+const announcementRoutes = require('./routes/announcementRoutes');
 
 dotenv.config({ path: path.join(__dirname, '../.env') });
 
@@ -31,7 +33,7 @@ app.use(helmet({
 
 // CORS configuration
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin:'http://localhost:3000',
   credentials: true,
   optionsSuccessStatus: 200
 }));
@@ -76,7 +78,8 @@ app.use('/api/chat', chatRoutes);
 app.use('/api/calendar', calendarRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/print-jobs', printJobRoutes);
-
+app.use('/api/testimonials/',ytestmoniaRoute);
+app.use('/api/announcements', announcementRoutes);
 // Health check
 app.get('/health', (req, res) => {
   res.json({

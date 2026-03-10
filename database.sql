@@ -425,3 +425,25 @@ INSERT INTO users (username, email, password_hash, first_name, last_name, role, 
 VALUES ('customer1', 'customer@example.com', '$2a$10$YourHashedPasswordHere', 'Peter', 'Jones', 'customer', true, true);
 
 -- Note: Make sure to hash passwords properly using bcrypt or similar in your application
+
+
+-- Add missing columns to images table
+ALTER TABLE images 
+ADD COLUMN IF NOT EXISTS service_category VARCHAR(100),
+ADD COLUMN IF NOT EXISTS print_size VARCHAR(100),
+ADD COLUMN IF NOT EXISTS quantity INT DEFAULT 1,
+ADD COLUMN IF NOT EXISTS paper_type VARCHAR(100),
+ADD COLUMN IF NOT EXISTS finish VARCHAR(100),
+ADD COLUMN IF NOT EXISTS color_mode_req VARCHAR(50),
+ADD COLUMN IF NOT EXISTS instructions TEXT,
+ADD COLUMN IF NOT EXISTS requires_proof BOOLEAN DEFAULT false,
+ADD COLUMN IF NOT EXISTS viewed_by_printer BOOLEAN DEFAULT false,
+ADD COLUMN IF NOT EXISTS viewed_at TIMESTAMP,
+ADD COLUMN IF NOT EXISTS completed_at TIMESTAMP,
+ADD COLUMN IF NOT EXISTS metadata JSONB;
+
+-- Create index for faster queries
+CREATE INDEX IF NOT EXISTS idx_images_service_category ON images(service_category);
+CREATE INDEX IF NOT EXISTS idx_images_status ON images(status);
+CREATE INDEX IF NOT EXISTS idx_images_uploaded_by ON images(uploaded_by);
+CREATE INDEX IF NOT EXISTS idx_images_created_at ON images(created_at DESC);
