@@ -23,6 +23,8 @@ const testmoniaRoute=require('./routes/testimonialRoutes');
 const announcementRoutes = require('./routes/announcementRoutes');
 const serviceAdminRoutes = require("./routes/admin/serviceRoutes");
 const servicePublicRoute = require("./routes/public/serviceRoutes");
+const galleryRoutes = require('./routes/public/galleryRoutes');
+
 
 dotenv.config({ path: path.join(__dirname, '../.env') });
 
@@ -84,6 +86,7 @@ app.use('/api/testimonials/',testmoniaRoute);
 app.use('/api/announcements', announcementRoutes);
 app.use("/api/admin/services", serviceAdminRoutes);
 app.use("/api/public/services", servicePublicRoute);
+app.use('/api/public/gallery', galleryRoutes);
 // Health check
 app.get('/health', (req, res) => {
   res.json({

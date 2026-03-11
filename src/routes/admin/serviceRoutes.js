@@ -98,5 +98,25 @@ router.patch('/:id/toggle-status', serviceController.toggleServiceStatus);
 
 // Bulk reorder services
 router.post('/reorder', serviceController.reorderServices);
+// ==================== CATEGORY ROUTES ====================
+
+// Get all categories
+router.get('/categories', serviceController.getCategories);
+
+// Get single category
+router.get('/categories/:id', serviceController.getCategoryById);
+
+// Create category
+router.post('/categories', serviceController.createCategory);
+
+// Update category
+router.put('/categories/:id', serviceController.updateCategory);
+
+// Delete category
+router.delete('/categories/:id', serviceController.deleteCategory);
+
+// Bulk reorder categories
+router.post('/categories/reorder', serviceController.reorderCategories);
+
 
 module.exports = router;
