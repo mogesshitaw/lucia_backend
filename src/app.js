@@ -19,8 +19,10 @@ const chatRoutes = require('./routes/chatRoutes');
 const calendarRoutes = require('./routes/calendarRoutes');
 const settingsRoutes = require('./routes/settingsRoutes');
 const printJobRoutes = require('./routes/printJobRoutes');
-const ytestmoniaRoute=require('./routes/testimonialRoutes');
+const testmoniaRoute=require('./routes/testimonialRoutes');
 const announcementRoutes = require('./routes/announcementRoutes');
+const serviceAdminRoutes = require("./routes/admin/serviceRoutes");
+const servicePublicRoute = require("./routes/public/serviceRoutes");
 
 dotenv.config({ path: path.join(__dirname, '../.env') });
 
@@ -78,8 +80,10 @@ app.use('/api/chat', chatRoutes);
 app.use('/api/calendar', calendarRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/print-jobs', printJobRoutes);
-app.use('/api/testimonials/',ytestmoniaRoute);
+app.use('/api/testimonials/',testmoniaRoute);
 app.use('/api/announcements', announcementRoutes);
+app.use("/api/admin/services", serviceAdminRoutes);
+app.use("/api/public/services", servicePublicRoute);
 // Health check
 app.get('/health', (req, res) => {
   res.json({
