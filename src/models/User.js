@@ -1,8 +1,7 @@
-// src/models/User.js
-const { query, transaction } = require('../config/database');
+// models/User.js
+const { query } = require('../config/database');
 const bcrypt = require('bcryptjs');
 const { v4: uuidv4 } = require('uuid');
-const CodeGenerator = require('../utils/codeGenerator');
 
 class User {
   // ==================== USER CREATION METHODS ====================
@@ -21,23 +20,21 @@ class User {
 
     const hashedPassword = await bcrypt.hash(password, parseInt(process.env.BCRYPT_ROUNDS || 10));
     const verificationToken = uuidv4();
-    const verificationCode = CodeGenerator.generateVerificationCode();
+    const verificationCode = Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit code
     const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
     try {
-      // Start transaction
-      const client = await query.client?.connect?.() || { query };
-      
       // Insert user
       const userResult = await query(
         `INSERT INTO users (
-          username, first_name, last_name, email, phone, password_hash, 
+          id, username, first_name, last_name, email, phone, password_hash, 
           company, account_type, role, email_verification_token, 
-          email_verification_expires, is_active, status
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) 
+          email_verification_expires, is_active, status, created_at, updated_at
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, NOW(), NOW()) 
         RETURNING id, first_name, last_name, email, phone, company, 
                   account_type, role, email_verified, is_active, status, created_at`,
         [
+          uuidv4(),
           email.split('@')[0], // Generate username from email
           firstName,
           lastName,
@@ -58,18 +55,18 @@ class User {
 
       // Insert verification record with code
       await query(
-        `INSERT INTO email_verifications (user_id, email, token, code, expires_at)
-         VALUES ($1, $2, $3, $4, $5)`,
-        [user.id, email, verificationToken, verificationCode, expiresAt]
+        `INSERT INTO email_verifications (id, user_id, email, token, code, expires_at, created_at)
+         VALUES ($1, $2, $3, $4, $5, $6, NOW())`,
+        [uuidv4(), user.id, email, verificationToken, verificationCode, expiresAt]
       );
 
       // Create customer profile
-      const customerCode = CodeGenerator.generateCustomerCode();
+      const customerCode = 'CUST-' + Date.now().toString().slice(-8);
       await query(
         `INSERT INTO customer_profiles (
           id, user_id, customer_code, company_name, account_type,
-          loyalty_points, customer_tier, total_orders, total_spent
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+          loyalty_points, customer_tier, total_orders, total_spent, created_at, updated_at
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW(), NOW())`,
         [
           uuidv4(), 
           user.id, 
@@ -86,8 +83,7 @@ class User {
       return {
         ...user,
         verificationToken,
-        verificationCode,
-        customerCode
+        verificationCode
       };
     } catch (error) {
       console.error('Error in User.create:', error);
@@ -119,19 +115,20 @@ class User {
     } = employeeData;
 
     const hashedPassword = await bcrypt.hash(password, parseInt(process.env.BCRYPT_ROUNDS || 10));
-    const employeeId = CodeGenerator.generateEmployeeId();
+    const employeeId = 'EMP-' + Date.now().toString().slice(-8);
     const verificationToken = uuidv4();
 
     try {
       // Insert user
       const userResult = await query(
         `INSERT INTO users (
-          username, first_name, last_name, email, phone, password_hash,
+          id, username, first_name, last_name, email, phone, password_hash,
           role, email_verified, email_verification_token, email_verification_expires,
-          is_active, status, created_at
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW()) 
+          is_active, status, created_at, updated_at
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, NOW(), NOW()) 
         RETURNING id, first_name, last_name, email, phone, role, created_at`,
         [
+          uuidv4(),
           email.split('@')[0],
           firstName,
           lastName,
@@ -141,7 +138,7 @@ class User {
           role,
           true, // Email auto-verified for employees
           verificationToken,
-          new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours expiry (though not needed)
+          new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours expiry
           true, // is_active
           'active' // status
         ]
@@ -155,8 +152,8 @@ class User {
           id, user_id, employee_id, department, position, hire_date, salary,
           emergency_contact_name, emergency_contact_phone, emergency_contact_relation,
           address, city, bank_account_number, bank_name, id_card_number,
-          created_at
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, NOW())`,
+          created_at, updated_at
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, NOW(), NOW())`,
         [
           uuidv4(),
           user.id,
@@ -185,6 +182,404 @@ class User {
       };
     } catch (error) {
       console.error('Error in User.createEmployee:', error);
+      throw error;
+    }
+  }
+
+  // Create user by admin
+  static async createByAdmin(userData) {
+    try {
+      const {
+        firstName,
+        lastName,
+        email,
+        phone,
+        password,
+        company,
+        role,
+        emailVerified
+      } = userData;
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const userId = uuidv4();
+
+      const result = await query(
+        `INSERT INTO users (
+          id, username, first_name, last_name, email, phone, password_hash,
+          company, role, email_verified, is_active, status, created_at, updated_at
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW(), NOW())
+        RETURNING id, first_name, last_name, email, phone, company, role, created_at`,
+        [
+          userId,
+          email.split('@')[0],
+          firstName,
+          lastName,
+          email.toLowerCase(),
+          phone || null,
+          hashedPassword,
+          company || null,
+          role || 'customer',
+          emailVerified || false,
+          true,
+          'active'
+        ]
+      );
+
+      return result.rows[0];
+    } catch (error) {
+      console.error('Error in createByAdmin:', error);
+      throw error;
+    }
+  }
+
+  // ==================== FIND METHODS ====================
+
+  // Find user by email
+  static async findByEmail(email) {
+    try {
+      const result = await query(
+        'SELECT * FROM users WHERE LOWER(email) = LOWER($1) AND deleted_at IS NULL',
+        [email]
+      );
+      return result.rows[0];
+    } catch (error) {
+      console.error('Error in findByEmail:', error);
+      throw error;
+    }
+  }
+
+  // Find user by ID
+  static async findById(id) {
+    try {
+      const result = await query(
+        `SELECT 
+          u.id, u.username, u.first_name, u.last_name, u.email, u.phone, u.company, 
+          u.account_type, u.role, u.email_verified, u.is_active, u.status, 
+          u.profile_photo_url as avatar, u.bio, u.preferences, u.last_login, u.last_login_ip,
+          u.last_activity, u.failed_login_attempts, u.lock_until, u.created_at, u.updated_at,
+          u.preferred_language,
+          
+          -- Customer profile fields
+          cp.id as customer_profile_id, cp.customer_code, cp.loyalty_points, 
+          cp.customer_tier, cp.total_orders, cp.total_spent, cp.average_order_value,
+          cp.last_order_date, cp.credit_limit, cp.billing_address, cp.shipping_address,
+          cp.city as customer_city, cp.country as customer_country,
+          
+          -- Employee profile fields
+          ep.id as employee_profile_id, ep.employee_id, ep.department, ep.position,
+          ep.hire_date, ep.contract_end_date, ep.salary as employee_salary,
+          ep.emergency_contact_name, ep.emergency_contact_phone, 
+          ep.emergency_contact_relation, ep.address as employee_address,
+          ep.city as employee_city
+          
+         FROM users u
+         LEFT JOIN customer_profiles cp ON u.id = cp.user_id
+         LEFT JOIN employee_profiles ep ON u.id = ep.user_id
+         WHERE u.id = $1 AND u.deleted_at IS NULL`,
+        [id]
+      );
+      return result.rows[0];
+    } catch (error) {
+      console.error('Error in findById:', error);
+      throw error;
+    }
+  }
+
+  // ==================== PROFILE UPDATE METHODS ====================
+
+  // Get current user profile with all details
+  static async getCurrentUserProfile(userId) {
+    try {
+      const result = await query(
+        `SELECT 
+          u.id,
+          u.first_name as "firstName",
+          u.last_name as "lastName",
+          u.email,
+          u.phone,
+          u.company,
+          u.bio,
+          u.profile_photo_url as "avatar",
+          u.preferences,
+          u.role,
+          u.created_at as "memberSince",
+          u.last_login as "lastLogin",
+          
+          -- Customer profile data
+          cp.company_name as "profileCompany",
+          cp.customer_tier as "tier",
+          cp.loyalty_points as "loyaltyPoints",
+          cp.total_orders as "totalOrders",
+          cp.total_spent as "totalSpent",
+          cp.billing_address as "billingAddress",
+          cp.shipping_address as "shippingAddress",
+          
+          -- Employee profile data
+          ep.employee_id as "employeeId",
+          ep.department,
+          ep.position,
+          ep.hire_date as "hireDate"
+          
+        FROM users u
+        LEFT JOIN customer_profiles cp ON u.id = cp.user_id
+        LEFT JOIN employee_profiles ep ON u.id = ep.user_id
+        WHERE u.id = $1 AND u.deleted_at IS NULL`,
+        [userId]
+      );
+
+      return result.rows[0] || null;
+    } catch (error) {
+      console.error('Error in getCurrentUserProfile:', error);
+      throw error;
+    }
+  }
+
+  // Update current user profile
+  static async updateCurrentUserProfile(userId, updates) {
+    try {
+      const allowedUpdates = ['first_name', 'last_name', 'phone', 'company', 'bio', 'preferences'];
+      const updateFields = [];
+      const values = [];
+      let paramIndex = 1;
+
+      Object.keys(updates).forEach((key) => {
+        if (allowedUpdates.includes(key) && updates[key] !== undefined) {
+          updateFields.push(`${key} = $${paramIndex}`);
+          values.push(updates[key]);
+          paramIndex++;
+        }
+      });
+
+      if (updateFields.length === 0) return null;
+
+      values.push(userId);
+      const result = await query(
+        `UPDATE users 
+         SET ${updateFields.join(', ')}, updated_at = NOW()
+         WHERE id = $${paramIndex} AND deleted_at IS NULL
+         RETURNING id, first_name, last_name, email, phone, company, bio, preferences, updated_at`,
+        values
+      );
+
+      return result.rows[0];
+    } catch (error) {
+      console.error('Error in updateCurrentUserProfile:', error);
+      throw error;
+    }
+  }
+
+  // Update profile photo
+  static async updateProfilePhoto(userId, photoUrl) {
+    try {
+      const result = await query(
+        `UPDATE users 
+         SET profile_photo_url = $2, updated_at = NOW()
+         WHERE id = $1 AND deleted_at IS NULL
+         RETURNING id, profile_photo_url`,
+        [userId, photoUrl]
+      );
+      return result.rows[0];
+    } catch (error) {
+      console.error('Error in updateProfilePhoto:', error);
+      throw error;
+    }
+  }
+
+  // Update user (admin)
+  static async updateUser(userId, updates) {
+    try {
+      const allowedUpdates = ['first_name', 'last_name', 'email', 'phone', 'company', 'role', 'status', 'is_active'];
+      const updateFields = [];
+      const values = [];
+      let paramIndex = 1;
+
+      Object.keys(updates).forEach((key) => {
+        if (allowedUpdates.includes(key) && updates[key] !== undefined) {
+          updateFields.push(`${key} = $${paramIndex}`);
+          values.push(updates[key]);
+          paramIndex++;
+        }
+      });
+
+      if (updateFields.length === 0) return null;
+
+      values.push(userId);
+      const result = await query(
+        `UPDATE users 
+         SET ${updateFields.join(', ')}, updated_at = NOW()
+         WHERE id = $${paramIndex} AND deleted_at IS NULL
+         RETURNING id, first_name, last_name, email, phone, company, role, status, is_active`,
+        values
+      );
+
+      return result.rows[0];
+    } catch (error) {
+      console.error('Error in updateUser:', error);
+      throw error;
+    }
+  }
+
+  // Update status
+  static async updateStatus(userId, status) {
+    try {
+      const result = await query(
+        `UPDATE users 
+         SET status = $2, is_active = CASE WHEN $2 = 'active' THEN true ELSE false END, updated_at = NOW()
+         WHERE id = $1 AND deleted_at IS NULL
+         RETURNING id, status, is_active`,
+        [userId, status]
+      );
+      return result.rows[0];
+    } catch (error) {
+      console.error('Error in updateStatus:', error);
+      throw error;
+    }
+  }
+
+  // Update role
+  static async updateRole(userId, role) {
+    try {
+      const result = await query(
+        `UPDATE users 
+         SET role = $2, updated_at = NOW()
+         WHERE id = $1 AND deleted_at IS NULL
+         RETURNING id, role`,
+        [userId, role]
+      );
+      return result.rows[0];
+    } catch (error) {
+      console.error('Error in updateRole:', error);
+      throw error;
+    }
+  }
+
+  // ==================== AUTHENTICATION METHODS ====================
+
+  // Validate password
+  static async validatePassword(user, password) {
+    if (!user || !user.password_hash) return false;
+    return bcrypt.compare(password, user.password_hash);
+  }
+
+  // Update last login
+  static async updateLastLogin(userId, ip, userAgent) {
+    try {
+      await query(
+        `UPDATE users 
+         SET last_login = NOW(), 
+             last_login_ip = $2,
+             last_activity = NOW(),
+             failed_login_attempts = 0,
+             lock_until = NULL
+         WHERE id = $1`,
+        [userId, ip]
+      );
+
+      await query(
+        `INSERT INTO login_history (id, user_id, ip_address, user_agent, login_type, success, created_at)
+         VALUES ($1, $2, $3, $4, $5, $6, NOW())`,
+        [uuidv4(), userId, ip, userAgent, 'local', true]
+      );
+    } catch (error) {
+      console.error('Error in updateLastLogin:', error);
+      throw error;
+    }
+  }
+
+  // Increment failed login attempts
+  static async incrementFailedAttempts(email, ip, userAgent) {
+    try {
+      const user = await this.findByEmail(email);
+      if (!user) return null;
+
+      const newAttempts = (user.failed_login_attempts || 0) + 1;
+      let lockUntil = null;
+
+      // Lock account after 5 failed attempts
+      if (newAttempts >= 5) {
+        lockUntil = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
+      }
+
+      await query(
+        `UPDATE users 
+         SET failed_login_attempts = $1, 
+             lock_until = $2
+         WHERE id = $3`,
+        [newAttempts, lockUntil, user.id]
+      );
+
+      await query(
+        `INSERT INTO login_history (id, user_id, ip_address, user_agent, login_type, success, failure_reason, created_at)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())`,
+        [uuidv4(), user.id, ip, userAgent, 'local', false, 'Invalid password']
+      );
+
+      return { newAttempts, lockUntil };
+    } catch (error) {
+      console.error('Error in incrementFailedAttempts:', error);
+      throw error;
+    }
+  }
+
+  // Check if account is locked
+  static async isAccountLocked(userId) {
+    try {
+      const result = await query(
+        'SELECT lock_until FROM users WHERE id = $1',
+        [userId]
+      );
+      
+      if (result.rows[0]?.lock_until) {
+        return new Date(result.rows[0].lock_until) > new Date();
+      }
+      
+      return false;
+    } catch (error) {
+      console.error('Error in isAccountLocked:', error);
+      throw error;
+    }
+  }
+
+  // Change password
+  static async changePassword(userId, oldPassword, newPassword) {
+    try {
+      // Get user's current password
+      const userResult = await query(
+        'SELECT password_hash FROM users WHERE id = $1 AND deleted_at IS NULL',
+        [userId]
+      );
+
+      if (userResult.rows.length === 0) {
+        return null;
+      }
+
+      // Verify old password
+      const validPassword = await bcrypt.compare(
+        oldPassword,
+        userResult.rows[0].password_hash
+      );
+
+      if (!validPassword) {
+        return null;
+      }
+
+      // Hash new password
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+      // Update password
+      await query(
+        `UPDATE users 
+         SET password_hash = $2, updated_at = NOW()
+         WHERE id = $1 AND deleted_at IS NULL`,
+        [userId, hashedPassword]
+      );
+
+      // Remove all sessions after password change
+      await this.removeAllSessions(userId);
+
+      return { id: userId, message: 'Password changed successfully' };
+    } catch (error) {
+      console.error('Error in changePassword:', error);
       throw error;
     }
   }
@@ -233,37 +628,6 @@ class User {
     }
   }
 
-  // Verify email with token
-  static async verifyEmailWithToken(token) {
-    try {
-      const result = await query(
-        `UPDATE users 
-         SET email_verified = true, 
-             email_verification_token = NULL,
-             email_verification_expires = NULL
-         WHERE email_verification_token = $1 
-           AND email_verification_expires > NOW()
-           AND deleted_at IS NULL
-         RETURNING id, email`,
-        [token]
-      );
-
-      if (result.rows[0]) {
-        await query(
-          `UPDATE email_verifications 
-           SET used = true, used_at = NOW()
-           WHERE token = $1`,
-          [token]
-        );
-      }
-
-      return result.rows[0];
-    } catch (error) {
-      console.error('Error in verifyEmailWithToken:', error);
-      throw error;
-    }
-  }
-
   // Resend verification
   static async resendVerification(email) {
     try {
@@ -271,7 +635,7 @@ class User {
       if (!user || user.email_verified) return null;
 
       const newToken = uuidv4();
-      const newCode = CodeGenerator.generateVerificationCode();
+      const newCode = Math.floor(100000 + Math.random() * 900000).toString();
       const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
       await query(
@@ -283,9 +647,9 @@ class User {
       );
 
       await query(
-        `INSERT INTO email_verifications (user_id, email, token, code, expires_at)
-         VALUES ($1, $2, $3, $4, $5)`,
-        [user.id, email, newToken, newCode, expiresAt]
+        `INSERT INTO email_verifications (id, user_id, email, token, code, expires_at, created_at)
+         VALUES ($1, $2, $3, $4, $5, $6, NOW())`,
+        [uuidv4(), user.id, email, newToken, newCode, expiresAt]
       );
 
       return { 
@@ -300,223 +664,13 @@ class User {
     }
   }
 
-  // ==================== FIND METHODS ====================
-
-  // Find user by email
-  static async findByEmail(email) {
-    try {
-      const result = await query(
-        'SELECT * FROM users WHERE LOWER(email) = LOWER($1) AND deleted_at IS NULL',
-        [email]
-      );
-      return result.rows[0];
-    } catch (error) {
-      console.error('Error in findByEmail:', error);
-      throw error;
-    }
-  }
-
-  // Find user by ID with profile
-  static async findById(id) {
-    try {
-      const result = await query(
-        `SELECT 
-          u.id, u.username, u.first_name, u.last_name, u.email, u.phone, u.company, 
-          u.account_type, u.role, u.email_verified, u.is_active, u.status, 
-          u.profile_photo_url, u.bio, u.preferences, u.last_login, u.last_login_ip,
-          u.last_activity, u.failed_login_attempts, u.lock_until, u.created_at, u.updated_at,
-          u.preferred_language,
-          
-          -- Customer profile fields
-          cp.id as customer_profile_id, cp.customer_code, cp.loyalty_points, 
-          cp.customer_tier, cp.total_orders, cp.total_spent, cp.average_order_value,
-          cp.last_order_date, cp.credit_limit, cp.billing_address, cp.shipping_address,
-          cp.city as customer_city, cp.country as customer_country,
-          
-          -- Employee profile fields
-          ep.id as employee_profile_id, ep.employee_id, ep.department, ep.position,
-          ep.hire_date, ep.contract_end_date, ep.salary as employee_salary,
-          ep.emergency_contact_name, ep.emergency_contact_phone, 
-          ep.emergency_contact_relation, ep.address as employee_address,
-          ep.city as employee_city
-          
-         FROM users u
-         LEFT JOIN customer_profiles cp ON u.id = cp.user_id
-         LEFT JOIN employee_profiles ep ON u.id = ep.user_id
-         WHERE u.id = $1 AND u.deleted_at IS NULL`,
-        [id]
-      );
-      return result.rows[0];
-    } catch (error) {
-      console.error('Error in findById:', error);
-      throw error;
-    }
-  }
-
-  // Find by refresh token
-  static async findByRefreshToken(refreshToken) {
-    try {
-      const result = await query(
-        `SELECT u.* FROM users u
-         JOIN sessions s ON u.id = s.user_id
-         WHERE s.refresh_token = $1 
-           AND s.expires_at > NOW()
-           AND u.deleted_at IS NULL`,
-        [refreshToken]
-      );
-      return result.rows[0];
-    } catch (error) {
-      console.error('Error in findByRefreshToken:', error);
-      throw error;
-    }
-  }
-
-  // ==================== AUTHENTICATION METHODS ====================
-
-  // Update last login
-  static async updateLastLogin(userId, ip, userAgent) {
-    try {
-      await query(
-        `UPDATE users 
-         SET last_login = NOW(), 
-             last_login_ip = $2,
-             last_activity = NOW(),
-             failed_login_attempts = 0,
-             lock_until = NULL
-         WHERE id = $1`,
-        [userId, ip]
-      );
-
-      await query(
-        `INSERT INTO login_history (user_id, ip_address, user_agent, login_type, success)
-         VALUES ($1, $2, $3, $4, $5)`,
-        [userId, ip, userAgent, 'local', true]
-      );
-    } catch (error) {
-      console.error('Error in updateLastLogin:', error);
-      throw error;
-    }
-  }
-
-  // Validate password
-  static async validatePassword(user, password) {
-    if (!user || !user.password_hash) return false;
-    return bcrypt.compare(password, user.password_hash);
-  }
-
-  // Increment failed login attempts
-  static async incrementFailedAttempts(email, ip, userAgent) {
-    try {
-      const user = await this.findByEmail(email);
-      if (!user) return null;
-
-      const newAttempts = (user.failed_login_attempts || 0) + 1;
-      let lockUntil = null;
-
-      // Lock account after 5 failed attempts
-      if (newAttempts >= 5) {
-        lockUntil = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
-      }
-
-      await query(
-        `UPDATE users 
-         SET failed_login_attempts = $1, 
-             lock_until = $2
-         WHERE id = $3`,
-        [newAttempts, lockUntil, user.id]
-      );
-
-      await query(
-        `INSERT INTO login_history (user_id, ip_address, user_agent, login_type, success, failure_reason)
-         VALUES ($1, $2, $3, $4, $5, $6)`,
-        [user.id, ip, userAgent, 'local', false, 'Invalid password']
-      );
-
-      return { newAttempts, lockUntil };
-    } catch (error) {
-      console.error('Error in incrementFailedAttempts:', error);
-      throw error;
-    }
-  }
-
-  // Check if account is locked
-  static async isAccountLocked(userId) {
-    try {
-      const result = await query(
-        'SELECT lock_until FROM users WHERE id = $1',
-        [userId]
-      );
-      
-      if (result.rows[0]?.lock_until) {
-        return new Date(result.rows[0].lock_until) > new Date();
-      }
-      
-      return false;
-    } catch (error) {
-      console.error('Error in isAccountLocked:', error);
-      throw error;
-    }
-  }
-
-  // Update online status
-  static async updateOnlineStatus(userId, isOnline) {
-    try {
-      await query(
-        `UPDATE users 
-         SET is_online = $2,
-             last_activity = NOW()
-         WHERE id = $1`,
-        [userId, isOnline]
-      );
-    } catch (error) {
-      console.error('Error in updateOnlineStatus:', error);
-      throw error;
-    }
-  }
-
-  // ==================== SESSION METHODS ====================
-
-  // Set refresh token
-  static async setRefreshToken(userId, refreshToken, expiresAt, userAgent, ip) {
-    try {
-      await query(
-        `INSERT INTO sessions (user_id, refresh_token, user_agent, ip_address, expires_at)
-         VALUES ($1, $2, $3, $4, $5)`,
-        [userId, refreshToken, userAgent, ip, expiresAt]
-      );
-    } catch (error) {
-      console.error('Error in setRefreshToken:', error);
-      throw error;
-    }
-  }
-
-  // Remove refresh token
-  static async removeRefreshToken(refreshToken) {
-    try {
-      await query('DELETE FROM sessions WHERE refresh_token = $1', [refreshToken]);
-    } catch (error) {
-      console.error('Error in removeRefreshToken:', error);
-      throw error;
-    }
-  }
-
-  // Remove all user sessions
-  static async removeAllSessions(userId) {
-    try {
-      await query('DELETE FROM sessions WHERE user_id = $1', [userId]);
-    } catch (error) {
-      console.error('Error in removeAllSessions:', error);
-      throw error;
-    }
-  }
-
   // ==================== PASSWORD RESET METHODS ====================
 
   // Request password reset
   static async requestPasswordReset(email) {
     try {
       const token = uuidv4();
-      const code = CodeGenerator.generateVerificationCode();
+      const code = Math.floor(100000 + Math.random() * 900000).toString();
       const expiresAt = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 
       const result = await query(
@@ -531,9 +685,9 @@ class User {
 
       if (result.rows[0]) {
         await query(
-          `INSERT INTO password_resets (user_id, email, token, code, expires_at)
-           VALUES ($1, $2, $3, $4, $5)`,
-          [result.rows[0].id, email, token, code, expiresAt]
+          `INSERT INTO password_resets (id, user_id, email, token, code, expires_at, created_at)
+           VALUES ($1, $2, $3, $4, $5, $6, NOW())`,
+          [uuidv4(), result.rows[0].id, email, token, code, expiresAt]
         );
       }
 
@@ -544,7 +698,7 @@ class User {
     }
   }
 
-  // Reset password
+  // Reset password with token
   static async resetPassword(token, newPassword) {
     try {
       const hashedPassword = await bcrypt.hash(newPassword, 10);
@@ -630,85 +784,133 @@ class User {
     }
   }
 
-  // ==================== PROFILE UPDATE METHODS ====================
+  // ==================== SESSION METHODS ====================
 
-  // Update profile
-  static async updateProfile(userId, updates) {
+  // Set refresh token
+  static async setRefreshToken(userId, refreshToken, expiresAt, userAgent, ip) {
     try {
-      const allowedUpdates = ['first_name', 'last_name', 'phone', 'company', 'bio', 'preferences'];
-      const updateFields = [];
-      const values = [];
-      let paramIndex = 1;
-
-      Object.keys(updates).forEach((key) => {
-        if (allowedUpdates.includes(key) && updates[key] !== undefined) {
-          updateFields.push(`${key} = $${paramIndex}`);
-          values.push(updates[key]);
-          paramIndex++;
-        }
-      });
-
-      if (updateFields.length === 0) return null;
-
-      values.push(userId);
-      const result = await query(
-        `UPDATE users 
-         SET ${updateFields.join(', ')}
-         WHERE id = $${paramIndex} 
-           AND deleted_at IS NULL
-         RETURNING id, first_name, last_name, email, phone, company, 
-                   account_type, email_verified, bio, preferences`,
-        values
-      );
-
-      return result.rows[0];
-    } catch (error) {
-      console.error('Error in updateProfile:', error);
-      throw error;
-    }
-  }
-
-  // Update profile photo
-  static async updateProfilePhoto(userId, photoUrl) {
-    try {
-      const result = await query(
-        `UPDATE users 
-         SET profile_photo_url = $2
-         WHERE id = $1 AND deleted_at IS NULL
-         RETURNING id, profile_photo_url`,
-        [userId, photoUrl]
-      );
-      return result.rows[0];
-    } catch (error) {
-      console.error('Error in updateProfilePhoto:', error);
-      throw error;
-    }
-  }
-
-  // Change password
-  static async changePassword(userId, oldPassword, newPassword) {
-    try {
-      const user = await this.findById(userId);
-      if (!user) return null;
-
-      const isValid = await this.validatePassword(user, oldPassword);
-      if (!isValid) return null;
-
-      const hashedPassword = await bcrypt.hash(newPassword, parseInt(process.env.BCRYPT_ROUNDS || 10));
-
       await query(
-        `UPDATE users 
-         SET password_hash = $2
-         WHERE id = $1 AND deleted_at IS NULL`,
-        [userId, hashedPassword]
+        `INSERT INTO sessions (id, user_id, refresh_token, user_agent, ip_address, expires_at, created_at)
+         VALUES ($1, $2, $3, $4, $5, $6, NOW())`,
+        [uuidv4(), userId, refreshToken, userAgent, ip, expiresAt]
       );
-
-      // Remove all sessions after password change (except current)
-      await this.removeAllSessions(userId);
-
-      return { id: userId, message: 'Password changed successfully' };
     } catch (error) {
-      console.error('Error in changePassword:', error);
+      console.error('Error in setRefreshToken:', error);
+      throw error;
+    }
+  }
+
+  // Remove refresh token
+  static async removeRefreshToken(refreshToken) {
+    try {
+      await query('DELETE FROM sessions WHERE refresh_token = $1', [refreshToken]);
+    } catch (error) {
+      console.error('Error in removeRefreshToken:', error);
+      throw error;
+    }
+  }
+
+  // Get user sessions
+  static async getUserSessions(userId) {
+    try {
+      const result = await query(
+        `SELECT 
+          id,
+          user_agent,
+          ip_address,
+          created_at,
+          expires_at
+         FROM sessions
+         WHERE user_id = $1
+         ORDER BY created_at DESC`,
+        [userId]
+      );
+      return result.rows;
+    } catch (error) {
+      console.error('Error in getUserSessions:', error);
+      throw error;
+    }
+  }
+
+  // Terminate a specific session
+  static async terminateSession(userId, sessionId) {
+    try {
+      await query(
+        'DELETE FROM sessions WHERE id = $1 AND user_id = $2',
+        [sessionId, userId]
+      );
+    } catch (error) {
+      console.error('Error in terminateSession:', error);
+      throw error;
+    }
+  }
+
+  // Terminate all sessions except current
+  static async terminateAllOtherSessions(userId, currentSessionId) {
+    try {
+      await query(
+        'DELETE FROM sessions WHERE user_id = $1 AND id != $2',
+        [userId, currentSessionId]
+      );
+    } catch (error) {
+      console.error('Error in terminateAllOtherSessions:', error);
+      throw error;
+    }
+  }
+
+  // Remove all sessions
+  static async removeAllSessions(userId) {
+    try {
+      await query('DELETE FROM sessions WHERE user_id = $1', [userId]);
+    } catch (error) {
+      console.error('Error in removeAllSessions:', error);
+      throw error;
+    }
+  }
+
+  // ==================== ACTIVITY METHODS ====================
+
+  // Get user activity
+  static async getUserActivity(userId, limit = 20) {
+    try {
+      const result = await query(
+        `SELECT 
+          created_at as date,
+          action,
+          details
+         FROM user_activity
+         WHERE user_id = $1
+         ORDER BY created_at DESC
+         LIMIT $2`,
+        [userId, limit]
+      );
+      return result.rows;
+    } catch (error) {
+      console.error('Error in getUserActivity:', error);
+      throw error;
+    }
+  }
+
+  // Get login history
+  static async getLoginHistory(userId, limit = 10) {
+    try {
+      const result = await query(
+        `SELECT 
+          ip_address,
+          user_agent,
+          login_type,
+          success,
+          failure_reason,
+          created_at
+         FROM login_history
+         WHERE user_id = $1
+         ORDER BY created_at DESC
+         LIMIT $2`,
+        [userId, limit]
+      );
+      return result.rows;
+    } catch (error) {
+      console.error('Error in getLoginHistory:', error);
       throw error;
     }
   }
@@ -737,7 +939,7 @@ class User {
         SELECT 
           id, username, first_name, last_name, email, phone, company, 
           role, status, account_type, email_verified, is_active, is_online,
-          profile_photo_url, last_login, last_activity, created_at, updated_at
+          profile_photo_url as avatar, last_login, last_activity, created_at, updated_at
         FROM users 
         WHERE deleted_at IS NULL
       `;
@@ -787,14 +989,16 @@ class User {
       const totalPages = Math.ceil(totalUsers / limit);
 
       return {
-        users: dataResult.rows,
-        pagination: {
-          page,
-          limit,
-          total: totalUsers,
-          pages: totalPages,
-          hasNextPage: page < totalPages,
-          hasPrevPage: page > 1
+        data: {
+          users: dataResult.rows,
+          pagination: {
+            page,
+            limit,
+            total: totalUsers,
+            pages: totalPages,
+            hasNextPage: page < totalPages,
+            hasPrevPage: page > 1
+          }
         }
       };
     } catch (error) {
@@ -803,254 +1007,21 @@ class User {
     }
   }
 
-  // Get all employees
-  static async getAllEmployees(options = {}) {
-    try {
-      const {
-        page = 1,
-        limit = 10,
-        search = '',
-        department = null,
-        sortBy = 'created_at',
-        sortOrder = 'DESC'
-      } = options;
-
-      const offset = (page - 1) * limit;
-      const queryParams = [];
-      let paramIndex = 1;
-
-      let countQuery = `
-        SELECT COUNT(*) 
-        FROM users u
-        JOIN employee_profiles ep ON u.id = ep.user_id
-        WHERE u.deleted_at IS NULL 
-        AND u.role IN ('admin', 'receptionist', 'cashier', 'designer', 'printer')
-      `;
-
-      let dataQuery = `
-        SELECT 
-          u.id, u.username, u.first_name, u.last_name, u.email, u.phone, 
-          u.role, u.status, u.is_active, u.is_online, u.profile_photo_url,
-          u.last_login, u.created_at,
-          ep.employee_id, ep.department, ep.position, ep.hire_date, ep.salary,
-          ep.emergency_contact_name, ep.emergency_contact_phone, 
-          ep.address, ep.city
-        FROM users u
-        JOIN employee_profiles ep ON u.id = ep.user_id
-        WHERE u.deleted_at IS NULL 
-        AND u.role IN ('admin', 'receptionist', 'cashier', 'designer', 'printer')
-      `;
-
-      if (search && search.trim() !== '') {
-        const searchCondition = ` AND (
-          u.first_name ILIKE $${paramIndex} OR 
-          u.last_name ILIKE $${paramIndex} OR 
-          u.email ILIKE $${paramIndex} OR
-          ep.employee_id ILIKE $${paramIndex}
-        )`;
-        countQuery += searchCondition;
-        dataQuery += searchCondition;
-        queryParams.push(`%${search}%`);
-        paramIndex++;
-      }
-
-      if (department) {
-        const deptCondition = ` AND ep.department = $${paramIndex}`;
-        countQuery += deptCondition;
-        dataQuery += deptCondition;
-        queryParams.push(department);
-        paramIndex++;
-      }
-
-      dataQuery += ` ORDER BY ${sortBy} ${sortOrder}`;
-      dataQuery += ` LIMIT $${paramIndex} OFFSET $${paramIndex + 1}`;
-      queryParams.push(limit, offset);
-
-      const countResult = await query(countQuery, queryParams.slice(0, paramIndex - 1));
-      const totalEmployees = parseInt(countResult.rows[0].count);
-
-      const dataResult = await query(dataQuery, queryParams);
-      const totalPages = Math.ceil(totalEmployees / limit);
-
-      return {
-        employees: dataResult.rows,
-        pagination: {
-          page,
-          limit,
-          total: totalEmployees,
-          pages: totalPages,
-          hasNextPage: page < totalPages,
-          hasPrevPage: page > 1
-        }
-      };
-    } catch (error) {
-      console.error('Error in getAllEmployees:', error);
-      throw error;
-    }
-  }
-
-  // Get all customers
-  static async getAllCustomers(options = {}) {
-    try {
-      const {
-        page = 1,
-        limit = 10,
-        search = '',
-        tier = null,
-        sortBy = 'created_at',
-        sortOrder = 'DESC'
-      } = options;
-
-      const offset = (page - 1) * limit;
-      const queryParams = [];
-      let paramIndex = 1;
-
-      let countQuery = `
-        SELECT COUNT(*) 
-        FROM users u
-        JOIN customer_profiles cp ON u.id = cp.user_id
-        WHERE u.deleted_at IS NULL AND u.role = 'customer'
-      `;
-
-      let dataQuery = `
-        SELECT 
-          u.id, u.username, u.first_name, u.last_name, u.email, u.phone, 
-          u.company, u.status, u.is_active, u.email_verified, 
-          u.profile_photo_url, u.last_login, u.created_at,
-          cp.customer_code, cp.company_name as profile_company, 
-          cp.customer_tier, cp.loyalty_points, cp.total_orders, 
-          cp.total_spent, cp.average_order_value, cp.credit_limit,
-          cp.billing_address, cp.shipping_address, cp.city, cp.country
-        FROM users u
-        JOIN customer_profiles cp ON u.id = cp.user_id
-        WHERE u.deleted_at IS NULL AND u.role = 'customer'
-      `;
-
-      if (search && search.trim() !== '') {
-        const searchCondition = ` AND (
-          u.first_name ILIKE $${paramIndex} OR 
-          u.last_name ILIKE $${paramIndex} OR 
-          u.email ILIKE $${paramIndex} OR
-          u.phone ILIKE $${paramIndex} OR
-          cp.customer_code ILIKE $${paramIndex} OR
-          COALESCE(cp.company_name, '') ILIKE $${paramIndex}
-        )`;
-        countQuery += searchCondition;
-        dataQuery += searchCondition;
-        queryParams.push(`%${search}%`);
-        paramIndex++;
-      }
-
-      if (tier) {
-        const tierCondition = ` AND cp.customer_tier = $${paramIndex}`;
-        countQuery += tierCondition;
-        dataQuery += tierCondition;
-        queryParams.push(tier);
-        paramIndex++;
-      }
-
-      dataQuery += ` ORDER BY ${sortBy} ${sortOrder}`;
-      dataQuery += ` LIMIT $${paramIndex} OFFSET $${paramIndex + 1}`;
-      queryParams.push(limit, offset);
-
-      const countResult = await query(countQuery, queryParams.slice(0, paramIndex - 1));
-      const totalCustomers = parseInt(countResult.rows[0].count);
-
-      const dataResult = await query(dataQuery, queryParams);
-      const totalPages = Math.ceil(totalCustomers / limit);
-
-      return {
-        customers: dataResult.rows,
-        pagination: {
-          page,
-          limit,
-          total: totalCustomers,
-          pages: totalPages,
-          hasNextPage: page < totalPages,
-          hasPrevPage: page > 1
-        }
-      };
-    } catch (error) {
-      console.error('Error in getAllCustomers:', error);
-      throw error;
-    }
-  }
-
-  // Update user status (activate/deactivate)
-  static async updateStatus(userId, isActive) {
+  // Get recent users
+  static async getRecentUsers(limit = 10) {
     try {
       const result = await query(
-        `UPDATE users 
-         SET is_active = $2, 
-             status = CASE WHEN $2 THEN 'active' ELSE 'inactive' END
-         WHERE id = $1 AND deleted_at IS NULL
-         RETURNING id, email, is_active, status`,
-        [userId, isActive]
+        `SELECT 
+          id, first_name, last_name, email, status, role, profile_photo_url as avatar, created_at
+         FROM users 
+         WHERE deleted_at IS NULL
+         ORDER BY created_at DESC
+         LIMIT $1`,
+        [limit]
       );
-      return result.rows[0];
+      return result.rows;
     } catch (error) {
-      console.error('Error in updateStatus:', error);
-      throw error;
-    }
-  }
-
-  // Update user role
-  static async updateRole(userId, role) {
-    try {
-      const result = await query(
-        `UPDATE users 
-         SET role = $2
-         WHERE id = $1 AND deleted_at IS NULL
-         RETURNING id, email, role`,
-        [userId, role]
-      );
-      return result.rows[0];
-    } catch (error) {
-      console.error('Error in updateRole:', error);
-      throw error;
-    }
-  }
-
-  // Soft delete user
-  static async softDelete(userId) {
-    try {
-      await query(
-        'UPDATE users SET deleted_at = NOW(), is_active = false WHERE id = $1',
-        [userId]
-      );
-      await this.removeAllSessions(userId);
-    } catch (error) {
-      console.error('Error in softDelete:', error);
-      throw error;
-    }
-  }
-
-  // ==================== STATISTICS METHODS ====================
-
-  // Get user stats for dashboard
-  static async getStats() {
-    try {
-      const result = await query(`
-        SELECT 
-          COUNT(*) as total_users,
-          COUNT(CASE WHEN role = 'customer' THEN 1 END) as total_customers,
-          COUNT(CASE WHEN role IN ('admin', 'receptionist', 'cashier', 'designer', 'printer') THEN 1 END) as total_employees,
-          COUNT(CASE WHEN role = 'customer' AND status = 'active' AND is_active = true THEN 1 END) as active_customers,
-          COUNT(CASE WHEN role IN ('admin', 'receptionist', 'cashier', 'designer', 'printer') AND status = 'active' AND is_active = true THEN 1 END) as active_employees,
-          COUNT(CASE WHEN email_verified = false AND role = 'customer' THEN 1 END) as unverified_customers,
-          COUNT(CASE WHEN created_at > NOW() - INTERVAL '30 days' THEN 1 END) as new_users_last_30days,
-          COUNT(CASE WHEN last_login > NOW() - INTERVAL '7 days' THEN 1 END) as active_last_7days,
-          COUNT(CASE WHEN role = 'admin' THEN 1 END) as admin_count,
-          COUNT(CASE WHEN role = 'receptionist' THEN 1 END) as receptionist_count,
-          COUNT(CASE WHEN role = 'cashier' THEN 1 END) as cashier_count,
-          COUNT(CASE WHEN role = 'designer' THEN 1 END) as designer_count,
-          COUNT(CASE WHEN role = 'printer' THEN 1 END) as printer_count
-        FROM users 
-        WHERE deleted_at IS NULL
-      `);
-      return result.rows[0];
-    } catch (error) {
-      console.error('Error in getStats:', error);
+      console.error('Error in getRecentUsers:', error);
       throw error;
     }
   }
@@ -1059,7 +1030,7 @@ class User {
   static async getUsersByRole(role, limit = null) {
     try {
       let queryText = `
-        SELECT id, first_name, last_name, email, status, last_login, profile_photo_url
+        SELECT id, first_name, last_name, email, status, last_login, profile_photo_url as avatar
         FROM users 
         WHERE role = $1 AND deleted_at IS NULL
         ORDER BY created_at DESC
@@ -1080,52 +1051,199 @@ class User {
     }
   }
 
-  // Get recent users
-  static async getRecentUsers(limit = 10) {
+  // Get admin count
+  static async getAdminCount() {
     try {
       const result = await query(
-        `SELECT 
-          id, first_name, last_name, email, status, role, profile_photo_url, created_at
-         FROM users 
-         WHERE deleted_at IS NULL
-         ORDER BY created_at DESC
-         LIMIT $1`,
-        [limit]
+        `SELECT COUNT(*) as count FROM users 
+         WHERE role = 'admin' AND deleted_at IS NULL`
       );
-      return result.rows;
+      return parseInt(result.rows[0].count);
     } catch (error) {
-      console.error('Error in getRecentUsers:', error);
+      console.error('Error in getAdminCount:', error);
       throw error;
     }
   }
 
-  // Search users
-  static async searchUsers(searchTerm, limit = 20) {
+  // Check if users in list are admins
+  static async checkAdminsInList(userIds) {
     try {
       const result = await query(
-        `SELECT 
-          id, first_name, last_name, email, phone, company, status, role, profile_photo_url
-         FROM users 
-         WHERE deleted_at IS NULL 
-           AND (
-             first_name ILIKE $1 OR 
-             last_name ILIKE $1 OR 
-             email ILIKE $1 OR
-             phone ILIKE $1
-           )
-         ORDER BY 
-           CASE 
-             WHEN email ILIKE $1 THEN 1
-             WHEN first_name ILIKE $1 OR last_name ILIKE $1 THEN 2
-             ELSE 3
-           END,
-           created_at DESC
-         LIMIT $2`,
-        [`%${searchTerm}%`, limit]
+        `SELECT COUNT(*) as count FROM users 
+         WHERE id = ANY($1::uuid[]) AND role = 'admin' AND deleted_at IS NULL`,
+        [userIds]
+      );
+      return parseInt(result.rows[0].count);
+    } catch (error) {
+      console.error('Error in checkAdminsInList:', error);
+      throw error;
+    }
+  }
+
+  // Bulk activate users
+  static async bulkActivate(userIds) {
+    try {
+      const result = await query(
+        `UPDATE users 
+         SET status = 'active', is_active = true, updated_at = NOW()
+         WHERE id = ANY($1::uuid[]) AND deleted_at IS NULL
+         RETURNING id`,
+        [userIds]
       );
       return result.rows;
     } catch (error) {
-      console.error('Error in searchUsers:', error);
+      console.error('Error in bulkActivate:', error);
+      throw error;
+    }
+  }
+
+  // Bulk deactivate users
+  static async bulkDeactivate(userIds) {
+    try {
+      const result = await query(
+        `UPDATE users 
+         SET status = 'inactive', is_active = false, updated_at = NOW()
+         WHERE id = ANY($1::uuid[]) AND deleted_at IS NULL
+         RETURNING id`,
+        [userIds]
+      );
+      return result.rows;
+    } catch (error) {
+      console.error('Error in bulkDeactivate:', error);
+      throw error;
+    }
+  }
+
+  // Bulk soft delete users
+  static async bulkSoftDelete(userIds) {
+    try {
+      const result = await query(
+        `UPDATE users 
+         SET deleted_at = NOW(), is_active = false, status = 'deleted'
+         WHERE id = ANY($1::uuid[]) AND deleted_at IS NULL
+         RETURNING id`,
+        [userIds]
+      );
+      
+      // Remove all sessions for deleted users
+      await query(
+        'DELETE FROM sessions WHERE user_id = ANY($1::uuid[])',
+        [userIds]
+      );
+      
+      return result.rows;
+    } catch (error) {
+      console.error('Error in bulkSoftDelete:', error);
+      throw error;
+    }
+  }
+
+  // Soft delete single user
+  static async softDelete(userId) {
+    try {
+      await query(
+        `UPDATE users 
+         SET deleted_at = NOW(), is_active = false, status = 'deleted'
+         WHERE id = $1 AND deleted_at IS NULL`,
+        [userId]
+      );
+      await this.removeAllSessions(userId);
+    } catch (error) {
+      console.error('Error in softDelete:', error);
+      throw error;
+    }
+  }
+
+  // Get users stats
+  static async getUsersStats() {
+    try {
+      const result = await query(`
+        SELECT 
+          COUNT(*) as total_users,
+          COUNT(CASE WHEN role = 'customer' THEN 1 END) as total_customers,
+          COUNT(CASE WHEN role IN ('admin', 'receptionist', 'cashier', 'designer', 'printer') THEN 1 END) as total_employees,
+          COUNT(CASE WHEN role = 'customer' AND status = 'active' THEN 1 END) as active_customers,
+          COUNT(CASE WHEN role IN ('admin', 'receptionist', 'cashier', 'designer', 'printer') AND status = 'active' THEN 1 END) as active_employees,
+          COUNT(CASE WHEN email_verified = false AND role = 'customer' THEN 1 END) as unverified,
+          COUNT(CASE WHEN created_at > NOW() - INTERVAL '30 days' THEN 1 END) as new_last_30days,
+          COUNT(CASE WHEN last_login > NOW() - INTERVAL '7 days' THEN 1 END) as active_last_7days
+        FROM users 
+        WHERE deleted_at IS NULL
+      `);
+      return result.rows[0];
+    } catch (error) {
+      console.error('Error in getUsersStats:', error);
+      throw error;
+    }
+  }
+
+  // Get all users simple (for export)
+  static async getAllUsersSimple({ role, status, search }) {
+    try {
+      let queryText = `
+        SELECT 
+          id, first_name, last_name, email, phone, company, role, status, 
+          email_verified, created_at, last_login
+        FROM users 
+        WHERE deleted_at IS NULL
+      `;
+      const params = [];
+      let paramIndex = 1;
+
+      if (role) {
+        queryText += ` AND role = $${paramIndex}`;
+        params.push(role);
+        paramIndex++;
+      }
+
+      if (status) {
+        queryText += ` AND status = $${paramIndex}`;
+        params.push(status);
+        paramIndex++;
+      }
+
+      if (search) {
+        queryText += ` AND (
+          first_name ILIKE $${paramIndex} OR 
+          last_name ILIKE $${paramIndex} OR 
+          email ILIKE $${paramIndex}
+        )`;
+        params.push(`%${search}%`);
+        paramIndex++;
+      }
+
+      queryText += ` ORDER BY created_at DESC`;
+
+      const result = await query(queryText, params);
+      return result.rows;
+    } catch (error) {
+      console.error('Error in getAllUsersSimple:', error);
+      throw error;
+    }
+  }
+
+  // Generate impersonation token
+  static async generateImpersonationToken(userId, adminId) {
+    try {
+      const jwt = require('jsonwebtoken');
+      
+      // Create token that expires in 1 hour
+      const accessToken = jwt.sign(
+        { 
+          userId, 
+          isImpersonating: true,
+          impersonatedBy: adminId 
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: '1h' }
+      );
+
+      // Log impersonation (you might want to create an impersonation_log table)
+      console.log(`Admin ${adminId} impersonating user ${userId}`);
+
+      return { accessToken, expiresIn: 3600 };
+    } catch (error) {
+      console.error('Error in generateImpersonationToken:', error);
       throw error;
     }
   }

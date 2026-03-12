@@ -1,8 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-
-
 const authenticate = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
@@ -18,6 +16,9 @@ const authenticate = async (req, res, next) => {
 
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      
+      // ✅ Add userId to request (used by controllers)
+      req.userId = decoded.userId;
       
       // Get user from database
       const user = await User.findById(decoded.userId);
@@ -37,7 +38,12 @@ const authenticate = async (req, res, next) => {
         });
       }
 
+      // ✅ Add full user object to request
       req.user = user;
+      
+      // ✅ Add sessionId if present in token
+      req.sessionId = decoded.sessionId || null;
+      
       next();
     } catch (error) {
       if (error.name === 'TokenExpiredError') {
@@ -62,7 +68,7 @@ const authenticate = async (req, res, next) => {
 };
 
 // Role-based authorization
- const authorize = (...roles) => {
+const authorize = (...roles) => {
   return (req, res, next) => {
     if (!req.user) {
       return res.status(401).json({
@@ -81,6 +87,7 @@ const authenticate = async (req, res, next) => {
     next();
   };
 };
+
 module.exports = {
   authenticate,
   authorize
