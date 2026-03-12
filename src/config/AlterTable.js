@@ -29,6 +29,13 @@ const addMissingColumns = async () => {
     `);
       console.log('✅ deleted_at column added successfully');
 
+     await query(`
+      ALTER TABLE services 
+      ADD COLUMN IF NOT EXISTS  deleted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+    `);
+      console.log('✅ deleted_at column added on service successfully');
+
+    
     // Add category column
     await query(`
       ALTER TABLE images 

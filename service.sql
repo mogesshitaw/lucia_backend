@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS services (
     seo_keywords TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by UUID REFERENCES users(id),
     updated_by UUID REFERENCES users(id)
 );
