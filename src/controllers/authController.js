@@ -1,11 +1,11 @@
+// controllers/authController.js
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const emailService = require('../utils/emailService');
 
 class AuthController {
-   constructor() {
-    // Bind all methods to this instance
+  constructor() {
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
     this.verifyEmail = this.verifyEmail.bind(this);
@@ -15,8 +15,29 @@ class AuthController {
     this.getCurrentUser = this.getCurrentUser.bind(this);
     this.generateAccessToken = this.generateAccessToken.bind(this);
     this.generateRefreshToken = this.generateRefreshToken.bind(this);
+    this.formatUserResponse = this.formatUserResponse.bind(this);
   }
-  // Register new customer
+
+  // Helper to format user response
+  formatUserResponse(user) {
+    return {
+      id: user.id,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      email: user.email,
+      phone: user.phone || '',
+      company: user.company || '',
+      role: user.role,
+      avatar: user.profile_photo_url || null,
+      isActive: user.is_active,
+      status: user.status,
+      emailVerified: user.email_verified,
+      memberSince: user.created_at,
+      lastLogin: user.last_login
+    };
+  }
+
+  // Register new user
   async register(req, res) {
     try {
       const errors = validationResult(req);
@@ -40,42 +61,40 @@ class AuthController {
           message: 'User with this email already exists'
         });
       }
-console.log(req.body);
+
       // Create user
       const user = await User.create(req.body);
 
-      // Send verification email with code
+      // Send verification email
       await emailService.sendVerificationEmail(
         user.email,
         user.first_name,
         user.verificationCode
       );
 
-      // Generate JWT tokens
+      // Generate tokens
       const accessToken = this.generateAccessToken(user.id);
       const refreshToken = this.generateRefreshToken(user.id);
 
-      // Set refresh token in HTTP-only cookie
+      // Save refresh token
+      const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+      await User.setRefreshToken(user.id, refreshToken, expiresAt, req.get('user-agent'), req.ip);
+
+      // Set refresh token cookie
       res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
-        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+        maxAge: 7 * 24 * 60 * 60 * 1000
       });
 
       res.status(201).json({
         success: true,
         message: 'Registration successful. Please check your email for verification code.',
         data: {
-          user: {
-            id: user.id,
-            firstName: user.first_name,
-            lastName: user.last_name,
-            email: user.email,
-            role: user.role
-          },
+          user: this.formatUserResponse(user),
           accessToken,
-          expiresIn: 15 * 60 // 15 minutes in seconds
+          expiresIn: 15 * 60
         }
       });
     } catch (error) {
@@ -87,7 +106,7 @@ console.log(req.body);
     }
   }
 
-  // Login user
+  // Login user - FIXED VERSION (no getCurrentUserProfile)
   async login(req, res) {
     try {
       const errors = validationResult(req);
@@ -115,11 +134,11 @@ console.log(req.body);
       }
 
       // Check if account is locked
-      if (user.lock_until && new Date(user.lock_until) > new Date()) {
-        const minutesLeft = Math.ceil((new Date(user.lock_until) - new Date()) / (60 * 1000));
+      const isLocked = await User.isAccountLocked(user.id);
+      if (isLocked) {
         return res.status(401).json({
           success: false,
-          message: `Account is locked. Please try again in ${minutesLeft} minutes.`
+          message: 'Account is temporarily locked. Please try again later.'
         });
       }
 
@@ -134,21 +153,19 @@ console.log(req.body);
         });
       }
 
-      // Check if email is verified (for customers only)
+      // Check if email is verified (for customers)
       if (user.role === 'customer' && !user.email_verified) {
-        // Resend verification
-        const verification = await User.resendVerification(email);
-        if (verification) {
-          await emailService.sendVerificationEmail(
-            verification.email,
-            verification.firstName,
-            verification.code
-          );
-        }
-
         return res.status(401).json({
           success: false,
-          message: 'Please verify your email before logging in. A new verification code has been sent.'
+          message: 'Please verify your email before logging in'
+        });
+      }
+
+      // Check if user is active
+      if (!user.is_active || user.status !== 'active') {
+        return res.status(401).json({
+          success: false,
+          message: 'Account is deactivated'
         });
       }
 
@@ -159,7 +176,11 @@ console.log(req.body);
       const accessToken = this.generateAccessToken(user.id);
       const refreshToken = this.generateRefreshToken(user.id);
 
-      // Set refresh token in cookie
+      // Save refresh token
+      const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+      await User.setRefreshToken(user.id, refreshToken, expiresAt, userAgent, ip);
+
+      // Set refresh token cookie
       res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
@@ -167,14 +188,14 @@ console.log(req.body);
         maxAge: 7 * 24 * 60 * 60 * 1000
       });
 
-      // Get full user data with profile
-      const userData = await User.findById(user.id);
+      // FIXED: Use findById instead of getCurrentUserProfile
+      const userProfile = await User.findById(user.id);
 
       res.json({
         success: true,
         message: 'Login successful',
         data: {
-          user: userData,
+          user: this.formatUserResponse(userProfile || user),
           accessToken,
           expiresIn: 15 * 60
         }
@@ -188,81 +209,41 @@ console.log(req.body);
     }
   }
 
-  // Verify email with code
-  async verifyEmail(req, res) {
+  // Get current user (using the auth middleware)
+  async getCurrentUser(req, res) {
     try {
-      const { email, code } = req.body;
-
-      if (!email || !code) {
-        return res.status(400).json({
+      const userId = req.user?.id || req.userId;
+      
+      if (!userId) {
+        return res.status(401).json({
           success: false,
-          message: 'Email and verification code are required'
+          message: 'User not authenticated'
         });
       }
 
-      const result = await User.verifyEmailWithCode(email, code);
+      const user = await User.findById(userId);
 
-      if (!result) {
-        return res.status(400).json({
+      if (!user) {
+        return res.status(404).json({
           success: false,
-          message: 'Invalid or expired verification code'
+          message: 'User not found'
         });
       }
 
       res.json({
         success: true,
-        message: 'Email verified successfully. You can now login.'
+        data: this.formatUserResponse(user)
       });
     } catch (error) {
-      console.error('Email verification error:', error);
+      console.error('Get current user error:', error);
       res.status(500).json({
         success: false,
-        message: 'An error occurred during email verification'
+        message: 'Failed to fetch user profile'
       });
     }
   }
 
-  // Resend verification code
-  async resendVerification(req, res) {
-    try {
-      const { email } = req.body;
-
-      if (!email) {
-        return res.status(400).json({
-          success: false,
-          message: 'Email is required'
-        });
-      }
-
-      const result = await User.resendVerification(email);
-
-      if (!result) {
-        return res.status(400).json({
-          success: false,
-          message: 'User not found or already verified'
-        });
-      }
-
-      await emailService.sendVerificationEmail(
-        result.email,
-        result.firstName,
-        result.code
-      );
-
-      res.json({
-        success: true,
-        message: 'Verification code sent successfully'
-      });
-    } catch (error) {
-      console.error('Resend verification error:', error);
-      res.status(500).json({
-        success: false,
-        message: 'An error occurred'
-      });
-    }
-  }
-
-  // Refresh access token
+  // Refresh token
   async refreshToken(req, res) {
     try {
       const refreshToken = req.cookies.refreshToken || req.body.refreshToken;
@@ -317,11 +298,9 @@ console.log(req.body);
       const refreshToken = req.cookies.refreshToken;
       
       if (refreshToken) {
-        // Remove refresh token from database
         await User.removeRefreshToken(refreshToken);
       }
 
-      // Clear cookie
       res.clearCookie('refreshToken');
 
       res.json({
@@ -337,24 +316,73 @@ console.log(req.body);
     }
   }
 
-  // Get current user
-  async getCurrentUser(req, res) {
+  // Verify email
+  async verifyEmail(req, res) {
     try {
-      const user = await User.findById(req.user.id);
-      
-      if (!user) {
-        return res.status(404).json({
+      const { email, code } = req.body;
+
+      if (!email || !code) {
+        return res.status(400).json({
           success: false,
-          message: 'User not found'
+          message: 'Email and verification code are required'
+        });
+      }
+
+      const result = await User.verifyEmailWithCode(email, code);
+
+      if (!result) {
+        return res.status(400).json({
+          success: false,
+          message: 'Invalid or expired verification code'
         });
       }
 
       res.json({
         success: true,
-        data: { user }
+        message: 'Email verified successfully. You can now login.'
       });
     } catch (error) {
-      console.error('Get current user error:', error);
+      console.error('Email verification error:', error);
+      res.status(500).json({
+        success: false,
+        message: 'An error occurred during email verification'
+      });
+    }
+  }
+
+  // Resend verification
+  async resendVerification(req, res) {
+    try {
+      const { email } = req.body;
+
+      if (!email) {
+        return res.status(400).json({
+          success: false,
+          message: 'Email is required'
+        });
+      }
+
+      const result = await User.resendVerification(email);
+
+      if (!result) {
+        return res.status(400).json({
+          success: false,
+          message: 'User not found or already verified'
+        });
+      }
+
+      await emailService.sendVerificationEmail(
+        result.email,
+        result.firstName,
+        result.code
+      );
+
+      res.json({
+        success: true,
+        message: 'Verification code sent successfully'
+      });
+    } catch (error) {
+      console.error('Resend verification error:', error);
       res.status(500).json({
         success: false,
         message: 'An error occurred'

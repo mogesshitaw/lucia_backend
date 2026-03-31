@@ -3,8 +3,329 @@ const User = require('../models/User');
 const { validationResult } = require('express-validator');
 const logger = require('../utils/logger');
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
+const path = require('path');
 
 class UserController {
+  // ==================== PROFILE METHODS (for logged-in users) ====================
+
+  // Get current user profile
+  async getCurrentUserProfile(req, res) {
+    try {
+      const userId = req.userId || req.user?.id;
+      
+      if (!userId) {
+        return res.status(401).json({
+          success: false,
+          message: 'User not authenticated'
+        });
+      }
+
+      const user = await User.getCurrentUserProfile(userId);
+      
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: 'User not found'
+        });
+      }
+
+      // Format the response for your frontend
+      const profile = {
+        id: user.id,
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
+        email: user.email || '',
+        phone: user.phone || '',
+        company: user.profileCompany || user.company || '',
+        position: user.position || '',
+        bio: user.bio || '',
+        avatar: user.avatar ? this.getFullUrl(req, user.avatar) : null,
+        coverImage: null,
+        dateOfBirth: null,
+        address: {
+          street: user.billingAddress?.street || '',
+          city: user.billingAddress?.city || '',
+          state: user.billingAddress?.state || '',
+          country: user.billingAddress?.country || '',
+          postalCode: user.billingAddress?.postalCode || '',
+        },
+        social: {
+          linkedin: '',
+          twitter: '',
+          github: '',
+          website: '',
+        },
+        preferences: user.preferences || {
+          language: 'en',
+          timezone: 'UTC',
+          emailNotifications: true,
+          twoFactorAuth: false,
+        },
+        stats: {
+          totalOrders: parseInt(user.totalOrders) || 0,
+          totalSpent: parseFloat(user.totalSpent) || 0,
+          memberSince: user.memberSince,
+          lastLogin: user.lastLogin,
+        },
+        activity: []
+      };
+
+      res.json({
+        success: true,
+        data: profile
+      });
+    } catch (error) {
+      logger.error('Get current user profile error:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Failed to fetch profile'
+      });
+    }
+  }
+
+  // Update current user profile
+  async updateCurrentUserProfile(req, res) {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          success: false,
+          errors: errors.array().reduce((acc, err) => {
+            acc[err.path] = err.msg;
+            return acc;
+          }, {})
+        });
+      }
+
+      const userId = req.userId || req.user?.id;
+      const { firstName, lastName, phone, company, bio } = req.body;
+
+      const updates = {};
+      if (firstName) updates.first_name = firstName;
+      if (lastName) updates.last_name = lastName;
+      if (phone) updates.phone = phone;
+      if (company) updates.company = company;
+      if (bio) updates.bio = bio;
+
+      const updatedUser = await User.updateCurrentUserProfile(userId, updates);
+
+      if (!updatedUser) {
+        return res.status(404).json({
+          success: false,
+          message: 'User not found'
+        });
+      }
+
+      logger.info(`User ${userId} updated their profile`);
+
+      res.json({
+        success: true,
+        message: 'Profile updated successfully',
+        data: updatedUser
+      });
+    } catch (error) {
+      logger.error('Update profile error:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Failed to update profile'
+      });
+    }
+  }
+
+  // Upload avatar
+  async uploadAvatar(req, res) {
+    try {
+      const userId = req.userId || req.user?.id;
+      
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          message: 'No file uploaded'
+        });
+      }
+
+      const avatarPath = req.file.path;
+      
+      // Get old avatar to delete if exists
+      const oldUser = await User.findById(userId);
+      if (oldUser && oldUser.profile_photo_url) {
+        const oldPath = oldUser.profile_photo_url.replace(`${req.protocol}://${req.get('host')}/`, '');
+        if (fs.existsSync(oldPath)) {
+          fs.unlinkSync(oldPath);
+        }
+      }
+
+      // Update user with new avatar
+      const updatedUser = await User.updateProfilePhoto(userId, avatarPath);
+
+      if (!updatedUser) {
+        return res.status(404).json({
+          success: false,
+          message: 'User not found'
+        });
+      }
+
+      const avatarUrl = this.getFullUrl(req, avatarPath);
+
+      logger.info(`User ${userId} updated their avatar`);
+
+      res.json({
+        success: true,
+        message: 'Avatar uploaded successfully',
+        data: { avatarUrl }
+      });
+    } catch (error) {
+      logger.error('Upload avatar error:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Failed to upload avatar'
+      });
+    }
+  }
+
+  // Change password
+  async changePassword(req, res) {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          success: false,
+          errors: errors.array().reduce((acc, err) => {
+            acc[err.path] = err.msg;
+            return acc;
+          }, {})
+        });
+      }
+
+      const userId = req.userId || req.user?.id;
+      const { oldPassword, newPassword } = req.body;
+
+      const result = await User.changePassword(userId, oldPassword, newPassword);
+
+      if (!result) {
+        return res.status(401).json({
+          success: false,
+          message: 'Current password is incorrect'
+        });
+      }
+
+      logger.info(`User ${userId} changed their password`);
+
+      res.json({
+        success: true,
+        message: 'Password changed successfully'
+      });
+    } catch (error) {
+      logger.error('Change password error:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Failed to change password'
+      });
+    }
+  }
+
+  // Get my activity
+  async getMyActivity(req, res) {
+    try {
+      const userId = req.userId || req.user?.id;
+      const limit = parseInt(req.query.limit) || 20;
+      
+      const activity = await User.getUserActivity(userId, limit);
+
+      res.json({
+        success: true,
+        data: activity
+      });
+    } catch (error) {
+      logger.error('Get my activity error:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Failed to fetch activity'
+      });
+    }
+  }
+
+  // Get my sessions
+  async getMySessions(req, res) {
+    try {
+      const userId = req.userId || req.user?.id;
+      
+      const sessions = await User.getUserSessions(userId);
+      
+      // Mark current session
+      const currentSessionId = req.sessionId;
+      const sessionsWithCurrent = sessions.map(session => ({
+        ...session,
+        isCurrent: session.id === currentSessionId
+      }));
+
+      res.json({
+        success: true,
+        data: sessionsWithCurrent
+      });
+    } catch (error) {
+      logger.error('Get my sessions error:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Failed to fetch sessions'
+      });
+    }
+  }
+
+  // Terminate my session
+  async terminateMySession(req, res) {
+    try {
+      const userId = req.userId || req.user?.id;
+      const { sessionId } = req.params;
+
+      // Don't allow terminating current session
+      if (sessionId === req.sessionId) {
+        return res.status(400).json({
+          success: false,
+          message: 'Cannot terminate current session'
+        });
+      }
+
+      await User.terminateSession(userId, sessionId);
+
+      logger.info(`User ${userId} terminated session ${sessionId}`);
+
+      res.json({
+        success: true,
+        message: 'Session terminated successfully'
+      });
+    } catch (error) {
+      logger.error('Terminate session error:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Failed to terminate session'
+      });
+    }
+  }
+
+  // Terminate all other sessions
+  async terminateAllOtherSessions(req, res) {
+    try {
+      const userId = req.userId || req.user?.id;
+      
+      await User.terminateAllOtherSessions(userId, req.sessionId);
+
+      logger.info(`User ${userId} terminated all other sessions`);
+
+      res.json({
+        success: true,
+        message: 'All other sessions terminated successfully'
+      });
+    } catch (error) {
+      logger.error('Terminate all sessions error:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Failed to terminate sessions'
+      });
+    }
+  }
+
   // ==================== ADMIN USER MANAGEMENT ====================
 
   // Get all users with pagination and filters
@@ -34,7 +355,7 @@ class UserController {
 
       res.json({
         success: true,
-        data: result.data
+        data: result
       });
     } catch (error) {
       logger.error('Get all users error:', error);
@@ -82,7 +403,6 @@ class UserController {
   // Create new user (admin)
   async createUser(req, res) {
     try {
-      // Check for validation errors
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({
@@ -474,7 +794,7 @@ class UserController {
     }
   }
 
-  // Get user activity log
+  // Get user activity
   async getUserActivity(req, res) {
     try {
       const { userId } = req.params;
@@ -655,6 +975,13 @@ class UserController {
     }
   }
 
+  // Helper: Get full URL for avatar
+  getFullUrl(req, path) {
+    if (!path) return null;
+    if (path.startsWith('http')) return path;
+    return `${req.protocol}://${req.get('host')}/${path.replace(/\\/g, '/')}`;
+  }
+
   // Helper: Convert to CSV
   convertToCSV(users) {
     if (users.length === 0) return '';
@@ -679,46 +1006,47 @@ class UserController {
 
     return csvContent;
   }
-  // Delete image (HARD DELETE - permanent)
-async deleteImage(req, res) {
-  try {
-    const { id } = req.params;
 
-    // Get image info first to delete files
-    const imageResult = await query('SELECT * FROM images WHERE id = $1', [id]);
-    
-    if (imageResult.rows.length === 0) {
-      return res.status(404).json({
+  // Delete image (HARD DELETE - permanent)
+  async deleteImage(req, res) {
+    try {
+      const { id } = req.params;
+
+      // Get image info first to delete files
+      const imageResult = await query('SELECT * FROM images WHERE id = $1', [id]);
+      
+      if (imageResult.rows.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: 'Image not found'
+        });
+      }
+
+      const image = imageResult.rows[0];
+
+      // Delete physical files
+      if (fs.existsSync(image.file_path)) {
+        fs.unlinkSync(image.file_path);
+      }
+      if (image.thumbnail_path && fs.existsSync(image.thumbnail_path)) {
+        fs.unlinkSync(image.thumbnail_path);
+      }
+
+      // PERMANENT DELETE from database (no soft delete)
+      await query('DELETE FROM images WHERE id = $1', [id]);
+
+      res.json({
+        success: true,
+        message: 'Image deleted permanently'
+      });
+    } catch (error) {
+      console.error('Error in deleteImage:', error);
+      res.status(500).json({
         success: false,
-        message: 'Image not found'
+        message: 'Failed to delete image'
       });
     }
-
-    const image = imageResult.rows[0];
-
-    // Delete physical files
-    if (fs.existsSync(image.file_path)) {
-      fs.unlinkSync(image.file_path);
-    }
-    if (image.thumbnail_path && fs.existsSync(image.thumbnail_path)) {
-      fs.unlinkSync(image.thumbnail_path);
-    }
-
-    // PERMANENT DELETE from database (no soft delete)
-    await query('DELETE FROM images WHERE id = $1', [id]);
-
-    res.json({
-      success: true,
-      message: 'Image deleted permanently'
-    });
-  } catch (error) {
-    console.error('Error in deleteImage:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to delete image'
-    });
   }
-}
 }
 
 module.exports = new UserController();
