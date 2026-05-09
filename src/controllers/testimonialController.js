@@ -201,8 +201,7 @@ const testimonialController = {
       // Get testimonials
       const testimonialsQuery = `
         SELECT 
-          t.*,
-          u.first_name || ' ' || u.last_name as approver_name
+          t.*, u.full_name as approver_name
         FROM testimonials t
         LEFT JOIN users u ON t.approved_by = u.id
         ${whereClause}

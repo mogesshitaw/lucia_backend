@@ -74,7 +74,7 @@ const createTables = async () => {
     `);
     console.log('  ✅ paper_size ENUM created/verified');
 
-    await query(`
+     await query(`
       DO $$ BEGIN
         CREATE TYPE transaction_type AS ENUM ('payment', 'refund', 'deposit', 'withdrawal');
       EXCEPTION

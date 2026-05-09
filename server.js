@@ -1,56 +1,44 @@
+// backend/server.js
 const app = require('./src/app');
+const http = require('http');
 const { pool } = require('./src/config/database');
 
 const PORT = process.env.PORT || 5000;
 
- const server = app.listen(PORT, () => {
-  console.log(`
-╔════════════════════════════════════════╗
-║     Lucia Printing Platform API        ║
-╠════════════════════════════════════════╣
-║  Server: http://localhost:${PORT}      ║
-║  Health: http://localhost:${PORT}/health║
-║  Environment: ${process.env.NODE_ENV}        ║
-╚════════════════════════════════════════╝
-  `);
-});
+// Create HTTP server
+const server = http.createServer(app);
 
-// Graceful shutdown
-const gracefulShutdown = async () => {
-  console.log('\n🔄 Received shutdown signal. Closing connections...');
 
-  server.close(async () => {
-    console.log('✅ HTTP server closed');
-
-    try {
-      await pool.end();
-      console.log('✅ Database pool closed');
-      process.exit(0);
-    } catch (err) {
-      console.error('❌ Error closing database pool:', err);
-      process.exit(1);
-    }
-  });
-
-  // Force shutdown after 10 seconds
-  setTimeout(() => {
-    console.error('⚠️ Could not close connections in time, forcefully shutting down');
+// Start server
+const startServer = async () => {
+  try {
+    // Test database connection
+    await pool.query('SELECT NOW()');
+    console.log('✅ Database connected');
+    
+ 
+  
+    server.listen(PORT, () => {
+      console.log(`
+╔══════════════════════════════════════════════════════════════╗
+║                    Lucia Printing Platform API                ║
+╠══════════════════════════════════════════════════════════════╣
+║  Server:      http://localhost:${PORT}                        ║
+║  API:         http://localhost:${PORT}/api                    ║
+║  Health:      http://localhost:${PORT}/health                 ║
+║  Environment: ${process.env.NODE_ENV || 'development'}                         ║
+╚══════════════════════════════════════════════════════════════╝
+      `);
+    });
+  } catch (error) {
+    console.error('❌ Failed to start server:', error);
     process.exit(1);
-  }, 10000);
+  }
 };
 
-process.on('SIGTERM', gracefulShutdown);
-process.on('SIGINT', gracefulShutdown);
 
-// Handle uncaught exceptions
-process.on('uncaughtException', (err) => {
-  console.error('❌ Uncaught Exception:', err);
-  gracefulShutdown();
-});
 
-process.on('unhandledRejection', (err) => {
-  console.error('❌ Unhandled Rejection:', err);
-  gracefulShutdown();
-});
+// Start the server
+startServer();
 
-module.exports = server;
+module.exports = { server, app };

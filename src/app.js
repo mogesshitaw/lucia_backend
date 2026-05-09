@@ -9,24 +9,16 @@ const path = require('path');
 
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
-const adminRoutes = require('./routes/adminRoutes');
-const imageRoutes = require('./routes/imageRoutes');
-const orderRoutes = require('./routes/orderRoutes');
-const productRoutes = require('./routes/productRoutes');
-const leadRoutes = require('./routes/leadRoutes');
-const analyticsRoutes = require('./routes/analyticsRoutes');
 const chatRoutes = require('./routes/chatRoutes');
-const calendarRoutes = require('./routes/calendarRoutes');
 const settingsRoutes = require('./routes/settingsRoutes');
-const printJobRoutes = require('./routes/printJobRoutes');
 const testmoniaRoute=require('./routes/testimonialRoutes');
 const announcementRoutes = require('./routes/announcementRoutes');
 const serviceAdminRoutes = require("./routes/admin/serviceRoutes");
 const servicePublicRoute = require("./routes/public/serviceRoutes");
 const galleryRoutes = require('./routes/public/galleryRoutes');
-
-
+const customersRoutes = require('./routes/customers');
 dotenv.config({ path: path.join(__dirname, '../.env') });
+const limiters = require('./middleware/rateLimit');
 
 const app = express();
 
@@ -37,23 +29,17 @@ app.use(helmet({
 
 // CORS configuration
 app.use(cors({
-  origin:process.env.CLIENT_URL ||  'http://localhost:3000',
+  origin: 'http://localhost:3000', //process.env.CLIENT_URL || 
   credentials: true,
   optionsSuccessStatus: 200
 }));
 
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000,
-  max: parseInt(process.env.RATE_LIMIT_MAX) || 100,
-  message: {
-    success: false,
-    message: 'Too many requests from this IP, please try again later.'
-  }
-});
 
-app.use('/api/', limiter);
 
+app.use('/api/public/', limiters.public);
+app.use('/api/auth/login', limiters.login);
+app.use('/api/auth/register', limiters.login);
+app.use('/api/', limiters.authenticated);
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
@@ -72,30 +58,27 @@ app.use('/uploads', (req, res, next) => {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/admin', adminRoutes);
-app.use('/api/images', imageRoutes);
-app.use('/api/orders', orderRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/leads', leadRoutes);
-app.use('/api/analytics', analyticsRoutes);
 app.use('/api/chat', chatRoutes);
-app.use('/api/calendar', calendarRoutes);
 app.use('/api/settings', settingsRoutes);
-app.use('/api/print-jobs', printJobRoutes);
 app.use('/api/testimonials/',testmoniaRoute);
 app.use('/api/announcements', announcementRoutes);
 app.use("/api/admin/services", serviceAdminRoutes);
 app.use("/api/public/services", servicePublicRoute);
 app.use('/api/public/gallery', galleryRoutes);
+app.use('/api/customers', customersRoutes);
+
 // Health check
-app.get('/health', (req, res) => {
+app.get('/api/health', (req, res) => {
   res.json({
-    success: true,
-    message: 'Server is running',
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV
+        success: true,
+        message: 'SPUMS Backend is running smoothly',
+        timestamp: new Date().toISOString(),
+        telegram_connected: telegramService.isConnected // የቴሌግራም ግንኙነትን ለማረጋገጥ
   });
 });
+
+
+
 
 // 404 handler
 app.use((req, res) => {
@@ -104,7 +87,6 @@ app.use((req, res) => {
     message: 'Route not found'
   });
 });
-
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Error:', err.stack);

@@ -289,3 +289,29 @@ CREATE TRIGGER after_announcement_view_insert
     AFTER INSERT ON announcement_views
     FOR EACH ROW
     EXECUTE FUNCTION increment_announcement_view();
+
+
+
+  CREATE TABLE IF NOT EXISTS testimonials (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      customer_name VARCHAR(255) NOT NULL,
+      customer_role VARCHAR(255),
+      company VARCHAR(255),
+      content TEXT NOT NULL,
+      rating INTEGER CHECK (rating >= 1 AND rating <= 5),
+      avatar_url TEXT,
+      avatar_path TEXT,
+      email VARCHAR(255),
+      is_approved BOOLEAN DEFAULT false,
+      is_featured BOOLEAN DEFAULT false,
+      status VARCHAR(50) DEFAULT 'pending', -- pending, approved, rejected
+      source VARCHAR(50) DEFAULT 'website', -- website, admin, social
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      approved_at TIMESTAMP,
+      approved_by UUID REFERENCES users(id),
+      customer_id UUID REFERENCES users(id),
+      order_id UUID REFERENCES orders(id),
+      metadata JSONB
+  );
+  

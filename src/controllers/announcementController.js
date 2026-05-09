@@ -814,7 +814,7 @@ const announcementController = {
       const itemsQuery = `
         SELECT 
           a.*,
-          u.first_name || ' ' || u.last_name as creator_name
+          u.full_name as creator_name
         FROM announcements a
         LEFT JOIN users u ON a.created_by = u.id
         ${whereClause}

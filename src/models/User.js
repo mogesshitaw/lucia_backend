@@ -253,29 +253,8 @@ class User {
     try {
       const result = await query(
         `SELECT 
-          u.id, u.username, u.first_name, u.last_name, u.email, u.phone, u.company, 
-          u.account_type, u.role, u.email_verified, u.is_active, u.status, 
-          u.profile_photo_url as avatar, u.bio, u.preferences, u.last_login, u.last_login_ip,
-          u.last_activity, u.failed_login_attempts, u.lock_until, u.created_at, u.updated_at,
-          u.preferred_language,
-          
-          -- Customer profile fields
-          cp.id as customer_profile_id, cp.customer_code, cp.loyalty_points, 
-          cp.customer_tier, cp.total_orders, cp.total_spent, cp.average_order_value,
-          cp.last_order_date, cp.credit_limit, cp.billing_address, cp.shipping_address,
-          cp.city as customer_city, cp.country as customer_country,
-          
-          -- Employee profile fields
-          ep.id as employee_profile_id, ep.employee_id, ep.department, ep.position,
-          ep.hire_date, ep.contract_end_date, ep.salary as employee_salary,
-          ep.emergency_contact_name, ep.emergency_contact_phone, 
-          ep.emergency_contact_relation, ep.address as employee_address,
-          ep.city as employee_city
-          
-         FROM users u
-         LEFT JOIN customer_profiles cp ON u.id = cp.user_id
-         LEFT JOIN employee_profiles ep ON u.id = ep.user_id
-         WHERE u.id = $1 AND u.deleted_at IS NULL`,
+          *
+         FROM users WHERE u.id = $1`,
         [id]
       );
       return result.rows[0];

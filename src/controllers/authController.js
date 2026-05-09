@@ -1,293 +1,226 @@
-// controllers/authController.js
-const User = require('../models/User');
+// backend/src/controllers/authController.js
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
-const emailService = require('../utils/emailService');
+const { query } = require('../config/database');
+const { v4: uuidv4 } = require('uuid');
 
 class AuthController {
   constructor() {
-    this.register = this.register.bind(this);
     this.login = this.login.bind(this);
-    this.verifyEmail = this.verifyEmail.bind(this);
-    this.resendVerification = this.resendVerification.bind(this);
-    this.refreshToken = this.refreshToken.bind(this);
-    this.logout = this.logout.bind(this);
+    this.register = this.register.bind(this);
     this.getCurrentUser = this.getCurrentUser.bind(this);
-    this.generateAccessToken = this.generateAccessToken.bind(this);
-    this.generateRefreshToken = this.generateRefreshToken.bind(this);
-    this.formatUserResponse = this.formatUserResponse.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
-  // Helper to format user response
-  formatUserResponse(user) {
-    return {
-      id: user.id,
-      firstName: user.first_name,
-      lastName: user.last_name,
-      email: user.email,
-      phone: user.phone || '',
-      company: user.company || '',
-      role: user.role,
-      avatar: user.profile_photo_url || null,
-      isActive: user.is_active,
-      status: user.status,
-      emailVerified: user.email_verified,
-      memberSince: user.created_at,
-      lastLogin: user.last_login
-    };
-  }
-
-  // Register new user
-  async register(req, res) {
+  // Login user - FIXED VERSION
+  async login(req, res) {
+    console.log('=== LOGIN REQUEST RECEIVED ===');
+    console.log('Request body:', req.body);
+    
     try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ 
-          success: false, 
-          errors: errors.array().reduce((acc, err) => {
-            acc[err.path] = err.msg;
-            return acc;
-          }, {})
-        });
-      }
-
-      const { email } = req.body;
-
-      // Check if user already exists
-      const existingUser = await User.findByEmail(email);
-      if (existingUser) {
+      const { username, password } = req.body;
+      
+      // Validate input
+      if (!username || !password) {
+        console.log('Missing username or password');
         return res.status(400).json({
           success: false,
-          message: 'User with this email already exists'
+          error: 'Username and password are required'
         });
       }
-
-      // Create user
-      const user = await User.create(req.body);
-
-      // Send verification email
-      await emailService.sendVerificationEmail(
-        user.email,
-        user.first_name,
-        user.verificationCode
-      );
-
-      // Generate tokens
-      const accessToken = this.generateAccessToken(user.id);
-      const refreshToken = this.generateRefreshToken(user.id);
-
-      // Save refresh token
-      const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-      await User.setRefreshToken(user.id, refreshToken, expiresAt, req.get('user-agent'), req.ip);
-
-      // Set refresh token cookie
-      res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 7 * 24 * 60 * 60 * 1000
-      });
-
-      res.status(201).json({
-        success: true,
-        message: 'Registration successful. Please check your email for verification code.',
-        data: {
-          user: this.formatUserResponse(user),
-          accessToken,
-          expiresIn: 15 * 60
-        }
-      });
-    } catch (error) {
-      console.error('Registration error:', error);
-      res.status(500).json({
-        success: false,
-        message: 'An error occurred during registration'
-      });
-    }
-  }
-
-  // Login user - FIXED VERSION (no getCurrentUserProfile)
-  async login(req, res) {
-    try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ 
-          success: false, 
-          errors: errors.array().reduce((acc, err) => {
-            acc[err.path] = err.msg;
-            return acc;
-          }, {})
-        });
-      }
-
-      const { email, password } = req.body;
-      const ip = req.ip;
-      const userAgent = req.get('user-agent');
 
       // Find user
-      const user = await User.findByEmail(email);
-      if (!user) {
+      console.log('Searching for user:', username);
+      const result = await query(
+        'SELECT * FROM users WHERE username = $1',
+        [username]
+      );
+
+      console.log('Query result rows:', result.rows.length);
+
+      if (result.rows.length === 0) {
+        console.log('User not found:', username);
         return res.status(401).json({
           success: false,
-          message: 'Invalid email or password'
+          error: 'Invalid username or password'
         });
       }
 
-      // Check if account is locked
-      const isLocked = await User.isAccountLocked(user.id);
-      if (isLocked) {
-        return res.status(401).json({
-          success: false,
-          message: 'Account is temporarily locked. Please try again later.'
-        });
-      }
-
-      // Validate password
-      const isValidPassword = await User.validatePassword(user, password);
-      if (!isValidPassword) {
-        // Increment failed attempts
-        await User.incrementFailedAttempts(email, ip, userAgent);
-        return res.status(401).json({
-          success: false,
-          message: 'Invalid email or password'
-        });
-      }
-
-      // Check if email is verified (for customers)
-      if (user.role === 'customer' && !user.email_verified) {
-        return res.status(401).json({
-          success: false,
-          message: 'Please verify your email before logging in'
-        });
-      }
+      const user = result.rows[0];
+      console.log('User found:', { id: user.id, username: user.username, is_active: user.is_active });
 
       // Check if user is active
-      if (!user.is_active || user.status !== 'active') {
+      if (!user.is_active) {
+        console.log('User is inactive:', username);
         return res.status(401).json({
           success: false,
-          message: 'Account is deactivated'
+          error: 'Account is deactivated'
+        });
+      }
+
+      // Verify password
+      console.log('Verifying password...');
+      const isValidPassword = await bcrypt.compare(password, user.password_hash);
+      console.log('Password valid:', isValidPassword);
+      
+      if (!isValidPassword) {
+        console.log('Invalid password for user:', username);
+        return res.status(401).json({
+          success: false,
+          error: 'Invalid username or password'
         });
       }
 
       // Update last login
-      await User.updateLastLogin(user.id, ip, userAgent);
+      await query(
+        'UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = $1',
+        [user.id]
+      );
+      console.log('Last login updated');
 
-      // Generate tokens
-      const accessToken = this.generateAccessToken(user.id);
-      const refreshToken = this.generateRefreshToken(user.id);
-
-      // Save refresh token
-      const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-      await User.setRefreshToken(user.id, refreshToken, expiresAt, userAgent, ip);
-
-      // Set refresh token cookie
-      res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 7 * 24 * 60 * 60 * 1000
-      });
-
-      // FIXED: Use findById instead of getCurrentUserProfile
-      const userProfile = await User.findById(user.id);
+      // Generate JWT token
+      const token = jwt.sign(
+        {
+          id: user.id,
+          username: user.username,
+          full_name: user.full_name,
+          role: user.role
+        },
+        process.env.JWT_SECRET || 'your-secret-key',
+        { expiresIn: '7d' }
+      );
+      console.log('Token generated successfully');
 
       res.json({
         success: true,
-        message: 'Login successful',
-        data: {
-          user: this.formatUserResponse(userProfile || user),
-          accessToken,
-          expiresIn: 15 * 60
+        token,
+        user: {
+          id: user.id,
+          username: user.username,
+          full_name: user.full_name,
+          role: user.role,
+          last_login: user.last_login
         }
       });
     } catch (error) {
-      console.error('Login error:', error);
+      console.error('Login error details:', error);
       res.status(500).json({
         success: false,
-        message: 'An error occurred during login'
+        error: 'An error occurred during login: ' + error.message
       });
     }
   }
 
-  // Get current user (using the auth middleware)
-  async getCurrentUser(req, res) {
+  // Register new user
+  async register(req, res) {
+    console.log('=== REGISTER REQUEST RECEIVED ===');
+    console.log('Request body:', req.body);
+    
     try {
-      const userId = req.user?.id || req.userId;
-      
-      if (!userId) {
-        return res.status(401).json({
+      const { username, password, full_name, role = 'admin' } = req.body;
+
+      // Validate input
+      if (!username || !password) {
+        console.log('Missing username or password');
+        return res.status(400).json({
           success: false,
-          message: 'User not authenticated'
+          error: 'Username and password are required'
         });
       }
 
-      const user = await User.findById(userId);
+      if (password.length < 6) {
+        console.log('Password too short');
+        return res.status(400).json({
+          success: false,
+          error: 'Password must be at least 6 characters'
+        });
+      }
 
-      if (!user) {
+      // Check if user exists
+      const existingUser = await query(
+        'SELECT id FROM users WHERE username = $1',
+        [username]
+      );
+      console.log('Existing user check:', existingUser.rows.length);
+
+      if (existingUser.rows.length > 0) {
+        console.log('Username already exists:', username);
+        return res.status(400).json({
+          success: false,
+          error: 'Username already exists'
+        });
+      }
+
+      // Hash password
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const userId = uuidv4();
+      console.log('Creating user with ID:', userId);
+
+      // Create user
+      const result = await query(
+        `INSERT INTO users (id, username, password_hash, full_name, role, is_active, created_at)
+         VALUES ($1, $2, $3, $4, $5, true, CURRENT_TIMESTAMP)
+         RETURNING id, username, full_name, role, created_at`,
+        [userId, username, hashedPassword, full_name || username, role]
+      );
+
+      const newUser = result.rows[0];
+      console.log('User created successfully:', newUser);
+
+      // Generate token
+      const token = jwt.sign(
+        {
+          id: newUser.id,
+          username: newUser.username,
+          full_name: newUser.full_name,
+          role: newUser.role
+        },
+        process.env.JWT_SECRET || 'your-secret-key',
+        { expiresIn: '7d' }
+      );
+      console.log('Token generated for new user');
+
+      res.status(201).json({
+        success: true,
+        message: 'User registered successfully',
+        token,
+        user: newUser
+      });
+    } catch (error) {
+      console.error('Registration error details:', error);
+      res.status(500).json({
+        success: false,
+        error: 'An error occurred during registration: ' + error.message
+      });
+    }
+  }
+
+  // Get current user
+  async getCurrentUser(req, res) {
+    try {
+      const userId = req.user.id;
+      const result = await query(
+        'SELECT id, username, full_name, role, is_active, last_login, created_at FROM users WHERE id = $1',
+        [userId]
+      );
+
+      if (result.rows.length === 0) {
         return res.status(404).json({
           success: false,
-          message: 'User not found'
+          error: 'User not found'
         });
       }
 
       res.json({
         success: true,
-        data: this.formatUserResponse(user)
+        user: result.rows[0]
       });
     } catch (error) {
       console.error('Get current user error:', error);
       res.status(500).json({
         success: false,
-        message: 'Failed to fetch user profile'
-      });
-    }
-  }
-
-  // Refresh token
-  async refreshToken(req, res) {
-    try {
-      const refreshToken = req.cookies.refreshToken || req.body.refreshToken;
-
-      if (!refreshToken) {
-        return res.status(401).json({
-          success: false,
-          message: 'Refresh token required'
-        });
-      }
-
-      // Verify refresh token
-      const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
-      
-      // Find user
-      const user = await User.findById(decoded.userId);
-      if (!user) {
-        return res.status(401).json({
-          success: false,
-          message: 'User not found'
-        });
-      }
-
-      // Generate new access token
-      const accessToken = this.generateAccessToken(user.id);
-
-      res.json({
-        success: true,
-        data: {
-          accessToken,
-          expiresIn: 15 * 60
-        }
-      });
-    } catch (error) {
-      if (error.name === 'TokenExpiredError') {
-        return res.status(401).json({
-          success: false,
-          message: 'Refresh token expired'
-        });
-      }
-      
-      return res.status(401).json({
-        success: false,
-        message: 'Invalid refresh token'
+        error: 'An error occurred'
       });
     }
   }
@@ -295,14 +228,6 @@ class AuthController {
   // Logout
   async logout(req, res) {
     try {
-      const refreshToken = req.cookies.refreshToken;
-      
-      if (refreshToken) {
-        await User.removeRefreshToken(refreshToken);
-      }
-
-      res.clearCookie('refreshToken');
-
       res.json({
         success: true,
         message: 'Logged out successfully'
@@ -311,102 +236,87 @@ class AuthController {
       console.error('Logout error:', error);
       res.status(500).json({
         success: false,
-        message: 'An error occurred during logout'
+        error: 'An error occurred'
       });
     }
   }
 
-  // Verify email
-  async verifyEmail(req, res) {
-    try {
-      const { email, code } = req.body;
 
-      if (!email || !code) {
-        return res.status(400).json({
-          success: false,
-          message: 'Email and verification code are required'
-        });
-      }
+// Change password endpoint
+async changePassword(req, res) {
+  try {
+    const { oldPassword, newPassword } = req.body;
+    const userId = req.user.id;
 
-      const result = await User.verifyEmailWithCode(email, code);
-
-      if (!result) {
-        return res.status(400).json({
-          success: false,
-          message: 'Invalid or expired verification code'
-        });
-      }
-
-      res.json({
-        success: true,
-        message: 'Email verified successfully. You can now login.'
-      });
-    } catch (error) {
-      console.error('Email verification error:', error);
-      res.status(500).json({
-        success: false,
-        message: 'An error occurred during email verification'
-      });
-    }
-  }
-
-  // Resend verification
-  async resendVerification(req, res) {
-    try {
-      const { email } = req.body;
-
-      if (!email) {
-        return res.status(400).json({
-          success: false,
-          message: 'Email is required'
-        });
-      }
-
-      const result = await User.resendVerification(email);
-
-      if (!result) {
-        return res.status(400).json({
-          success: false,
-          message: 'User not found or already verified'
-        });
-      }
-
-      await emailService.sendVerificationEmail(
-        result.email,
-        result.firstName,
-        result.code
-      );
-
-      res.json({
-        success: true,
-        message: 'Verification code sent successfully'
-      });
-    } catch (error) {
-      console.error('Resend verification error:', error);
-      res.status(500).json({
-        success: false,
-        message: 'An error occurred'
-      });
-    }
-  }
-
-  // Generate access token
-  generateAccessToken(userId) {
-    return jwt.sign(
-      { userId },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_ACCESS_EXPIRATION || '15m' }
+    // Get user with password hash
+    const result = await query(
+      'SELECT password_hash FROM users WHERE id = $1',
+      [userId]
     );
-  }
 
-  // Generate refresh token
-  generateRefreshToken(userId) {
-    return jwt.sign(
-      { userId },
-      process.env.JWT_REFRESH_SECRET,
-      { expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d' }
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        error: 'User not found'
+      });
+    }
+
+    const user = result.rows[0];
+    
+    // Verify old password
+    const isValid = await bcrypt.compare(oldPassword, user.password_hash);
+    if (!isValid) {
+      return res.status(401).json({
+        success: false,
+        error: 'Current password is incorrect'
+      });
+    }
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    
+    // Update password
+    await query(
+      'UPDATE users SET password_hash = $1 WHERE id = $2',
+      [hashedPassword, userId]
     );
+
+    res.json({
+      success: true,
+      message: 'Password changed successfully'
+    });
+  } catch (error) {
+    console.error('Change password error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'An error occurred'
+    });
   }
+}
+
+// Update profile (full name only for now)
+async updateProfile(req, res) {
+  try {
+    const { full_name } = req.body;
+    const userId = req.user.id;
+
+    const result = await query(
+      'UPDATE users SET full_name = $1 WHERE id = $2 RETURNING id, username, full_name, role',
+      [full_name, userId]
+    );
+
+    res.json({
+      success: true,
+      user: result.rows[0]
+    });
+  } catch (error) {
+    console.error('Update profile error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'An error occurred'
+    });
+  }
+}
 }
 
 module.exports = new AuthController();
